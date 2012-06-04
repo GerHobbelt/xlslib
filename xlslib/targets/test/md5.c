@@ -25,32 +25,37 @@ Code adapted from citadel (www.citadel.org ???)
 #include <stdio.h>
 #include <stdlib.h>
 
-
-#if !defined(HAVE_STRCASECMP)
-#define strcasecmp(a, b)   stricmp(a, b)
+#if defined(HAVE_STRINGS_H)
+#include <strings.h>
+#elif defined(HAVE_STRING_H)
+#include <string.h>
 #endif
 
+#if ! defined(HAVE_STRCASECMP)
+#define NET_BSD_STRCASECMP
+static int strcasecmp(const char *s1, const char *s2);
+#endif
 
-
-#ifndef WORDS_BIGENDIAN
-#define byteReverse(buf, len)	/* Nothing */
-#else
 /*
  * Note: this code is harmless on little-endian machines.
  */
-static void byteReverse(unsigned char *buf, size_t longs)
+ static void byteReverse(void *vbuf, size_t longs)
 {
-    unsigned32_t t;
+	unsigned8_t *buf = (unsigned char *)vbuf;
+	union {
+		unsigned8_t		c[4];
+		unsigned32_t	t;
+	} tmp;
+
     do {
-	t = (unsigned32_t) ((unsigned32_t) buf[3] << 8 | buf[2]) << 16 |
-	    ((unsigned32_t) buf[1] << 8 | buf[0]);
-	*(unsigned32_t *) buf = t;
-	buf += 4;
+		tmp.t = (unsigned32_t) ((unsigned32_t) buf[3] << 8 | (unsigned32_t) buf[2]) << 16 | ((unsigned32_t) buf[1] << 8 | (unsigned32_t) buf[0]);
+		buf[0] = tmp.c[0];
+		buf[1] = tmp.c[1];
+		buf[2] = tmp.c[2];
+		buf[3] = tmp.c[3];
+		buf += 4;
     } while (--longs);
 }
-#endif
-
-
 
 /*
  * Start MD5 accumulation.  Set bit count to 0 and buffer to mysterious
@@ -351,13 +356,13 @@ int load_file(unsigned8_t **buf_ref, size_t *buflen_ref, const char *filepath)
 	unsigned8_t *b = NULL;
 	size_t bsiz = 4096;
 	size_t blen = 0;
-	int bload;
+	int bload = 0;
 
 	f = fopen(filepath, "rb");
 
 	while (f && !feof(f))
 	{
-		size_t bload;
+		size_t bload2;
 
 		if (!b)
 		{
@@ -371,13 +376,13 @@ int load_file(unsigned8_t **buf_ref, size_t *buflen_ref, const char *filepath)
 		if (!b)
 			goto fail_dramatically;
 
-		bload = bsiz - blen;
-		bload = fread(b + blen, 1, bload, f);
+		bload2 = bsiz - blen;
+		bload2 = fread(b + blen, 1, bload2, f);
 
-		if (bload < 0)
+		if ((signed32_t)bload2 < 0)
 			goto fail_dramatically;
 
-		blen += bload;
+		blen += bload2;
 	}
 
 	fclose(f);
@@ -417,13 +422,13 @@ int load_file(unsigned8_t **buf_ref, size_t *buflen_ref, const char *filepath)
 		/*
 		the hex search data says: HPSF_STRING:len=6+1:data="xlsLib\0"
 		*/
-		unsigned8_t searchstring[] = "\x1e\0\0\0\x07\0\0\0\0\0\0\0\0\0\0\0";
+		unsigned8_t searchstring[16] = { 0x1e, 0, 0, 0, 0x07, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		static const int searchlen = 16;
 		size_t idlen = strlen(PACKAGE_NAME) + 1;
 		size_t l;
 
 		searchstring[4] = (unsigned8_t)idlen;
-		if (idlen > searchlen - 8)
+		if (idlen > (searchlen - 8))
 			idlen = searchlen - 8;
 		memcpy(searchstring + 8, PACKAGE_NAME, idlen);
 
@@ -432,11 +437,22 @@ int load_file(unsigned8_t **buf_ref, size_t *buflen_ref, const char *filepath)
 		{
 			if (!memcmp(b + l, searchstring, searchlen))
 			{
+#if 0
+				printf("\n");
+				int x=0;
+				unsigned8_t *p = b + l - 2*(8+4) - x;
+				for(int i=0; i<2*(8+4) + 2*x; ++i) printf("%2.2x ", p[i]);
+				printf("\n");
+#endif
 				// blow away those ever varying timestamps:
 				memset(b + l - 2*(8+4), 0, 2*(8+4));
 				break;
 			}
 		}
+	}
+	// Mac or PC bit
+	if(b) {
+		b[564] = 0;
 	}
 
 	return 0;
@@ -491,21 +507,72 @@ int mk_md5_4_file(char *md5_checksum, size_t md5_checksum_bufsize, const char *f
 	return 0;
 }
 
+static char digest[MD5_HEXSTRING_SIZE];
 
-int check_file(const char *filepath, const char *md5_checksum)
+char * check_file(const char *filepath, const char *md5_checksum)
 {
 	int rv;
-	char digest[MD5_HEXSTRING_SIZE];
 	
 	rv = mk_md5_4_file(digest, sizeof(digest), filepath);
 	if (rv != 0)
-		return -256;
+		return "File Not Found";
 
 	rv = strcasecmp(digest, md5_checksum);
 	if (rv)
 	{
-		printf("    # md5: %s -- %s\n", digest, md5_checksum);
+		printf("    # md5: Actual=\"%s\" -- Expected=\"%s\"\n", digest, md5_checksum);
+		return digest;
+	} else {
+		return NULL;
 	}
-	return rv;
 }
 
+/*
+ * Copyright (c) 1987, 1993
+ *	The Regents of the University of California.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ * From NetBSD: strcasecmp.c,v 1.12 2000/01/22 22:19:20 mycroft Exp
+ */
+
+#ifdef NET_BSD_STRCASECMP
+
+#include <ctype.h>
+
+typedef unsigned char u_char;
+
+int
+strcasecmp(const char *s1, const char *s2)
+{
+	const u_char *us1 = (const u_char *)s1,
+			*us2 = (const u_char *)s2;
+
+	while (tolower(*us1) == tolower(*us2++))
+		if (*us1++ == '\0')
+			return (0);
+	return (tolower(*us1) - tolower(*--us2));
+}
+#endif

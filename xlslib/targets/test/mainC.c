@@ -1,11 +1,30 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Copyright (C) 2004-2006 Yeico S. A. de C. V.
- * Copyright (C) 2008 David Hoerl
  *
- * $Source: /cvsroot/xlslib/xlslib/targets/test/mainC.c,v $
- * $Revision: 1.5 $
- * $Author: dhoerl $
- * $Date: 2009/03/08 21:17:45 $
+ * This file is part of xlslib -- A multiplatform, C/C++ library
+ * for dynamic generation of Excel(TM) files.
+ *
+ * Copyright 2004 Yeico S. A. de C. V. All Rights Reserved.
+ * Copyright 2008-2011 David Hoerl All Rights Reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
+ * 
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
+ * 
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY David Hoerl ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL David Hoerl OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
@@ -16,18 +35,30 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifdef HAVE_CONFIG_H
-#include <xlconfig.h>
+#include "common/xlconfig.h"
 #elif defined(_MSC_VER) && defined(WIN32)
 #include "ac-config.win32.h"
 #endif
 
+#ifdef __BCPLUSPLUS__
+#  include "ac-config.win32.h"
+// I am assuming this header file is created and include automatically by MSVC.
+// Other compilers (I.e. BC++ ) don't have this, so I simply copied the file
+// from the MSC project to the RadStudio project and included it. RLN 111208
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef HAVE_STDINT_H	// [i_a] 
+#include <errno.h>
+#ifdef _X_DEBUG_
+#include <unistd.h>
+#endif
+
+// [i_a] 
+#ifdef HAVE_STDINT_H
 #include <stdint.h>
 #endif
-#ifdef HAVE_STDBOOL_H	// [i_a] 
+#ifdef HAVE_STDBOOL_H
 #include <stdbool.h>
 #else
 typedef enum
@@ -43,12 +74,12 @@ typedef enum
 #include <sys/types.h>
 #endif
 
-
-//#define RANGE_FEATURE
-#include <xlslib.h>
+#include "xlslib.h"
 
 #include "md5.h"
 
+extern void writeUnicodeLabel(worksheet *ws, unsigned int row, unsigned int col);
+extern void test_compile(void);
 
 static void my_xlslib_assertion_reporter(const char *expr, const char *filename, int lineno, const char *funcname)
 {
@@ -71,7 +102,7 @@ static void my_xlslib_assertion_reporter(const char *expr, const char *filename,
 }
 
 
-void writeUnicodeLabel(worksheet *ws, int row, int col)
+void writeUnicodeLabel(worksheet *ws, unsigned int row, unsigned int col)
 {
    const wchar_t *latin1wstr = L"\x0055\x006e\x0069\x0063\x006f\x0064\x0065\x0020\x0074\x0065\x0078\x0074\x0020\x00e3\x00f5\x00f1\x00e1\x00e9\x00fa\x00ed\x00f3\x002c\x00e0\x00e8\x00ec\x00f2\x00f9\x00e4\x00eb\x00ef\x00f6\x00fc\x00f1\x00e2\x00ea\x00ee\x00f4\x00fb";
    const wchar_t *wstr = L"\x3042\x3043"; // 2 Hiragana characters
@@ -108,18 +139,46 @@ void writeUnicodeLabel(worksheet *ws, int row, int col)
 	xlsWorksheetLabelW(ws, row++, col, latin1wstr, NULL);
 }
 
-
 int main(int argc, char *argv[]) 
 {
 	workbook *w;
 	worksheet *ws;
 	int ret;
+	char check[40], *checkP = check;
+	char fileName[128];
+	
+	fileName[0] = 0;
+	
+	// Used for internal testing
+	if(argc == 2) {
+#ifdef _X_DEBUG_
+		chdir(argv[1]);
+#endif
+		strcpy(fileName, argv[1]);
+		strcat(fileName, "/");		
+	}
+	strcat(fileName, "mainC.md5");
+	
+	{
+		FILE *fp = fopen(fileName, "r");
+		if(fp) {
+			fscanf(fp, "%s", checkP);
+			fclose(fp);
+		} else {
+			strcpy(checkP, "00000000000000000000000000000000");
+		}
+		//printf("MD5 = %s\n", checkP);
+		if(fp)
+			fclose(fp);
+	}
 
 	xlslib_register_assert_reporter(&my_xlslib_assertion_reporter);
 
 	w = xlsNewWorkbook();
 	ws = xlsWorkbookSheet(w, "xlslib C");
-
+#ifdef __APPLE__
+	xlsWorkbookIconvInType(w, "UCS-4-INTERNAL");
+#endif
 	xlsWorksheetNumberDbl(ws, (unsigned16_t)1, (unsigned16_t)1, 1.0, NULL);  
 	xlsWorksheetNumberDbl(ws, (unsigned16_t)2, (unsigned16_t)1, 2.0, NULL);
 	xlsWorksheetNumberDbl(ws, (unsigned16_t)3, (unsigned16_t)1, 3.0, NULL);
@@ -127,7 +186,8 @@ int main(int argc, char *argv[])
 	writeUnicodeLabel(ws, 5, 1);
 	ret = xlsWorkbookDump(w, "testC.xls");
 
-	printf("    # saved it ret=%d!\n", ret);
+	// printf("    # saved it ret=%d errno=%s\n", ret, strerror(errno));
+
 	xlsDeleteWorkbook(w);
 
 	if (ret != NO_ERRORS)
@@ -135,21 +195,28 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "%s failed: I/O failure %d.\n", argv[0], ret);
 		return EXIT_FAILURE;
 	}
-	if (0 != check_file("testC.xls", "c2a3a622dcff00f2fdbaa208e4753983"))
+	if ((checkP = check_file("testC.xls", checkP)))
 	{
 		fprintf(stderr, "%s failed: MD5 of generated XLS mismatch or I/O failure.\n", argv[0]);
+
+		if(argc == 2)
+		{
+			FILE *fp = fopen(fileName, "w");
+			if(fp) {
+				fprintf(fp, "%s\n", checkP);
+				printf("UPDATE MD5 = %s\n", checkP);
+				fclose(fp);
+			} else {
+				printf("FAILED TO WRITE MD5\n");
+			}
+		}
 		return EXIT_FAILURE;
 	}
-
 	return EXIT_SUCCESS;
 }
 
 
-
-
-
-
-#if 01
+#if 1
 
 /*
 only to test the compile and link phase: do we have 'em all?
@@ -170,9 +237,7 @@ property_t prop = PROP_SUBJECT;
 unsigned16_t i16 = 0;
 unsigned32_t row = 0;
 unsigned32_t col = 0;
-#ifdef RANGE_FEATURE
 range *r;
-#endif
 cell_t *c = 0;
 double numval = 0.0;
 format_number_t fmtnum = FMT_CURRENCY8;
@@ -220,9 +285,7 @@ c =  xlsWorksheetFindCell(s, row, col);
 xlsWorksheetMerge(s, row, col, row, col);
 xlsWorksheetColwidth(s, col, i16, xf);
 xlsWorksheetRowheight(s, row, i16, xf);
-#ifdef RANGE_FEATURE
 r = xlsWorksheetRangegroup(s, row, col, row, col);
-#endif
 c =  xlsWorksheetLabel(s, row, col, name, xf);
 c =  xlsWorksheetLabelW(s, row, col, uname, xf);
 c =  xlsWorksheetBlank(s, row, col, xf);

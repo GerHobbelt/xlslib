@@ -1,11 +1,9 @@
 
 AM_CPPFLAGS		=  \
--I$(top_srcdir)/src/common \
--I$(top_srcdir)/src/xlslib \
--I$(top_srcdir)/src/oledoc 
+-I$(top_srcdir)/src
 
 
-noinst_PROGRAMS	  = testCPP testC PR2859188
+noinst_PROGRAMS	  = testCPP testC PR2859188 PR3076678
 testCPP_SOURCES	  = mainCPP.cpp md5.c
 testCPP_LDADD	  = $(top_builddir)/src/libxls.la 
 testCPP_LDFLAGS   = -static -lstdc++

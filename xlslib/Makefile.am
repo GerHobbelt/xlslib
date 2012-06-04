@@ -1,4 +1,4 @@
-#auxdir					= m4 
+#auxdir					= m4
 #@AC_AUX_DIR@
 AUX_DIST				= $(auxdir)/install-sh $(auxdir)/missing \
 							$(auxdir)/mkinstalldirs
@@ -12,7 +12,7 @@ MAINTAINERCLEANFILES 	= Makefile.in aclocal.m4 acinclude.m4 configure sic/config
 							sic/stamp-h.in $(AUX_DIST)
 
 #ACLOCAL				= aclocal
-ACLOCAL_AMFLAGS			= -I m4 
+ACLOCAL_AMFLAGS			= -I m4 ${ACLOCAL_FLAGS}
 
 
 ##dist-hook:

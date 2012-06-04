@@ -3,25 +3,27 @@
  * This file is part of xlslib -- A multiplatform, C/C++ library
  * for dynamic generation of Excel(TM) files.
  *
- * xlslib is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2008-2011 David Hoerl All Rights Reserved.
  *
- * xlslib is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with xlslib.  If not, see <http://www.gnu.org/licenses/>.
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
  * 
- * Copyright 2008 David Hoerl
- *  
- * $Source: /cvsroot/xlslib/xlslib/src/xlslib/cbridge.cpp,v $
- * $Revision: 1.9 $
- * $Author: dhoerl $
- * $Date: 2009/03/02 04:08:43 $
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
+ * 
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY David Hoerl ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL David Hoerl OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
@@ -31,15 +33,19 @@
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#include <xlsys.h>
 
 #include <sys/types.h>
 #include <string>
 
 #define CPP_BRIDGE_XLS
 
-#include <common.h> /* RANGE_FEATURE */
-#include <xlslib.h>
+// since xlslib.h does not include these for C files
+#include "common/xlsys.h"
+#include "common/systype.h"
+#include "xlslib/common.h" 
+#include "xlslib/record.h"
+
+#include "xlslib.h"
 
 using namespace std;
 using namespace xlslib_core;
@@ -80,7 +86,7 @@ extern "C" {
 #ifdef HAVE_ICONV
 	int xlsWorkbookIconvInType(workbook *w, const char *inType)	{ return w->iconvInType(inType); }
 #endif
-	uint8_t xlsWorkbookProperty(workbook *w, property_t prop, const char *s)
+	unsigned8_t xlsWorkbookProperty(workbook *w, property_t prop, const char *s)
 																{ 
 																	std::string str = s;
 																	return w->property(prop, str) ? 1 : 0;
@@ -108,12 +114,9 @@ extern "C" {
 																{ return w->colwidth(col, width, pxformat); }
 	void xlsWorksheetRowheight(worksheet *w, unsigned32_t row, unsigned16_t height, xf_t* pxformat)
 																{ return w->rowheight(row, height, pxformat); } 
-																
-#ifdef RANGE_FEATURE
-																	// Ranges
+	// Ranges
 	range *xlsWorksheetRangegroup(worksheet *w, unsigned32_t row1, unsigned32_t col1, unsigned32_t row2, unsigned32_t col2)
 																{ return w->rangegroup(row1, col1, row2, col2); }
-#endif // RANGE_FEATURE
 
 	// Cells
 	cell_t *xlsWorksheetLabel(worksheet *w, unsigned32_t row, unsigned32_t col, const char *strlabel, xf_t *pxformat)
@@ -155,7 +158,21 @@ extern "C" {
 
 																	return w->note(row, col, cmt, auth, pxformat); 
 																}
-																
+	void xlsWorksheetHyperLink(worksheet *w, cell_t *cell, const char *url, const char *mark)
+																{ 
+																	std::string sUrl = url;
+																	std::string sMark = mark ? mark : "";
+
+																	w->hyperLink(cell, sUrl, sMark); 
+																}
+	void xlsWorksheetHyperLinkW(worksheet *w, cell_t *cell, const unichar_t *url, const unichar_t *mark)
+																{ 
+																	std::ustring sUrl = url;
+																	std::ustring sMark = mark ? mark : L"";
+
+																	w->hyperLink(cell, sUrl, sMark); 
+																}
+	
 	// Cells
 	// xf_i interface
 	void xlsCellFont(cell_t *c, font_t *fontidx)				{ return c->font(fontidx); }
@@ -196,11 +213,8 @@ extern "C" {
 
 	unsigned32_t xlsCellGetRow(cell_t *c)						{ return c->GetRow(); }
 	unsigned32_t xlsCellGetCol(cell_t *c)						{ return c->GetCol(); }
-#ifdef RANGE_FEATURE	
 	// range
-	void xlsRangeCellcolor(range *r, color_name_t color)		{ return r->cellcolor(color); }
-#endif // RANGE_FEATURE
-	
+	void xlsRangeCellcolor(range *r, color_name_t color)		{ return r->cellcolor(color); }	
 	// xformat
 	void xlsXformatSetFont(xf_t *x, font_t* fontidx)			{ return x->SetFont(fontidx); }
 	unsigned16_t xlsXformatGetFontIndex(xf_t *x)				{ return x->GetFontIndex(); }

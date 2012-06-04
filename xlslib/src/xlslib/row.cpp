@@ -3,78 +3,74 @@
  * This file is part of xlslib -- A multiplatform, C/C++ library
  * for dynamic generation of Excel(TM) files.
  *
- * xlslib is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2004 Yeico S. A. de C. V. All Rights Reserved.
+ * Copyright 2008-2011 David Hoerl All Rights Reserved.
  *
- * xlslib is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with xlslib.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * Copyright 2004 Yeico S. A. de C. V.
- * Copyright 2008 David Hoerl
- *  
- * $Source: /cvsroot/xlslib/xlslib/src/xlslib/row.cpp,v $
- * $Revision: 1.3 $
- * $Author: dhoerl $
- * $Date: 2009/01/08 02:52:47 $
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
  *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
  *
- * File description:
- *
- *
+ * THIS SOFTWARE IS PROVIDED BY David Hoerl ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL David Hoerl OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+#include "xlslib/record.h"
+#include "xlslib/row.h"
+#include "xlslib/datast.h"
+#include "xlslib/rectypes.h"
+#include "xlslib/extformat.h"
 
-#include <xlsys.h>
-
-#include <row.h>
-#include <datast.h>
 
 using namespace xlslib_core;
 
-
-rowheight_t::rowheight_t() : 
-		xformat(NULL), 
-		num(0), 
-		height(ROW_DFLT_HEIGHT) 
-{
-}
-rowheight_t::rowheight_t(unsigned32_t rownum, unsigned16_t rowheight, xf_t *pxformat) : 
-		xformat(pxformat), 
-		num(rownum), 
-		height(rowheight) 
+rowheight_t::rowheight_t() :
+	xformat(NULL),
+	num(0),
+	height(ROW_DFLT_HEIGHT)
 {
 }
 
-rowheight_t::~rowheight_t() 
+rowheight_t::rowheight_t(unsigned32_t rownum, unsigned16_t rowheight, xf_t *pxformat) :
+	xformat(pxformat),
+	num(rownum),
+	height(rowheight)
 {
-	if(xformat) 
+}
+
+rowheight_t::~rowheight_t()
+{
+	if(xformat) {
 		xformat->UnMarkUsed();
+	}
 }
-
-
 
 /*
-******************************
-CRow class implementation
-******************************
-*/
+ ******************************
+ * CRow class implementation
+ ******************************
+ */
 
-CRow::CRow(CDataStorage &datastore, 
-		   unsigned32_t rownum,  
-           unsigned32_t firstcol,
-           unsigned32_t lastcol, 
-           unsigned16_t rowheight,
-		   const xf_t* xformat):
-		CRecord(datastore)
+CRow::CRow(CDataStorage &datastore,
+		   unsigned32_t rownum,
+		   unsigned32_t firstcol,
+		   unsigned32_t lastcol,
+		   unsigned16_t rowheight,
+		   const xf_t* xformat) :
+	CRecord(datastore)
 {
 	SetRecordType(RECTYPE_ROW);
 	AddValue16((unsigned16_t)rownum);
@@ -91,11 +87,10 @@ CRow::CRow(CDataStorage &datastore,
 	// TODO: The following flag-word can be used for outline cells.
 	// As a default the GhostDirty flag is set, so the row has a default
 	// format (set by the index of byte 18).
-	if(rowheight == ROW_DFLT_HEIGHT)
-	{
-		AddValue16(ROW_DFLT_GRBIT/*|0x100*/); // [i_a] Excel2003 also sets bit 8: 0x100
+	if(rowheight == ROW_DFLT_HEIGHT) {
+		AddValue16(ROW_DFLT_GRBIT /*|0x100*/); // [i_a] Excel2003 also sets bit 8: 0x100
 	} else {
-		AddValue16(ROW_DFLT_GRBIT|ROW_GRBIT_UNSYNC/*|0x100*/);   
+		AddValue16(ROW_DFLT_GRBIT|ROW_GRBIT_UNSYNC /*|0x100*/);
 	}
 	if(xformat == NULL) {
 		AddValue16(ROW_DFLT_IXFE);
@@ -103,57 +98,37 @@ CRow::CRow(CDataStorage &datastore,
 		AddValue16(xformat->GetIndex());
 	}
 
-	SetRecordLength(GetDataSize()-4);
+	SetRecordLength(GetDataSize()-RECORD_HEADER_SIZE);
 }
-
 
 CRow::~CRow()
 {
 }
 
-
 /*
-******************************
-CDBCell class implementation
-******************************
-*/
-CDBCell::CDBCell(CDataStorage &datastore, size_t startblock):
-		CRecord(datastore)
+ ******************************
+ * CDBCell class implementation
+ ******************************
+ */
+CDBCell::CDBCell(CDataStorage &datastore, size_t startblock) :
+	CRecord(datastore)
 {
-#if defined(LEIGHTWEIGHT_UNIT_FEATURE)
-   m_Backpatching_Level = 1;
-#else
-#endif
+	m_Backpatching_Level = 1;
 
-   // The new initializated DBCell record points to nowhere and has no 
-   // extra rows (the array of stream offsets is empty);
-   SetRecordType(RECTYPE_DBCELL);
-   AddValue32((unsigned32_t) startblock);
+	// The new initializated DBCell record points to nowhere and has no
+	// extra rows (the array of stream offsets is empty);
+	SetRecordType(RECTYPE_DBCELL);
+	AddValue32((unsigned32_t)startblock);
 
-   SetRecordLength(GetDataSize()-4);
+	SetRecordLength(GetDataSize()-RECORD_HEADER_SIZE);
 }
 
 CDBCell::~CDBCell()
 {
 }
 
-
 void CDBCell::AddRowOffset(size_t rowoffset)
-{    
-   AddValue16((unsigned16_t) rowoffset);
-   SetRecordLength(GetDataSize()-4);
+{
+	AddValue16((unsigned16_t) rowoffset);
+	SetRecordLength(GetDataSize()-RECORD_HEADER_SIZE);
 }
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * $Log: row.cpp,v $
- * Revision 1.3  2009/01/08 02:52:47  dhoerl
- * December Rework
- *
- * Revision 1.2  2008/10/25 18:39:54  dhoerl
- * 2008
- *
- * Revision 1.1.1.1  2004/08/27 16:31:53  darioglz
- * Initial Import.
- *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-

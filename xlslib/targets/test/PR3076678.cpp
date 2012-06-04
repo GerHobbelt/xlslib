@@ -2,7 +2,6 @@
  * SF issue #3083003 (! NOT 3076678 !)
 */
 
-//#define RANGE_FEATURE
 #include <xlslib.h>
 
 #include <iostream>
@@ -13,6 +12,11 @@
 using namespace std;
 using namespace xlslib_core;
 
+static char file_err[] = "00000000000000000000000000000000";
+
+#define NUM_TESTS	1
+
+char check[NUM_TESTS][40];
 
 
 /*
@@ -25,7 +29,9 @@ cell. Is this a bug in Excel, in xlslib or is there something special I have
 to take care of? I observed that behaviour in Excel 2002, 2003 and 2010. The
 problem does not occur in Calc.
 */
-int BorderTest(const char *md5_checksum)
+extern char *BorderTest(const char *md5_checksum);
+
+char *BorderTest(const char *md5_checksum)
 {
 	workbook wb;
 
@@ -47,22 +53,21 @@ int BorderTest(const char *md5_checksum)
 	// test multiple Dump() calls: PR3083160
 	err |= wb.Dump("PR3083003-2.xls");
 
+	char *checkP = file_err;
 	if (err != NO_ERRORS)
 	{
 		cerr << "BorderTest failed: I/O failure: " << err << std::endl;
-		return -1;
+		return checkP;
 	}
-	if (0 != check_file("PR3083003.xls", md5_checksum))
+	if ((checkP = check_file("PR3083003.xls", md5_checksum)))
 	{
 		cerr << "BorderTest failed: MD5 of generated XLS mismatch or I/O failure." << std::endl;
-		return -1;
-	}
-	if (0 != check_file("PR3083003-2.xls", md5_checksum))
+	} else
+	if ((checkP = check_file("PR3083003-2.xls", md5_checksum)))
 	{
 		cerr << "BorderTest failed: MD5 of generated XLS mismatch or I/O failure." << std::endl;
-		return -1;
 	}
-	return 0;
+	return checkP;
 }
 
 
@@ -70,15 +75,72 @@ int BorderTest(const char *md5_checksum)
 int main(int argc, char *argv[]) 
 {
 	int rv = 0;
+	char fileName[128];
+	
+	fileName[0] = 0;
+
+	// Used for internal testing
+	if(argc == 2) {
+#ifdef _X_DEBUG_
+		chdir(argv[1]);
+#endif
+		strcpy(fileName, argv[1]);
+		strcat(fileName, "/");		
+	}
+	strcat(fileName, "PR3076678.md5");
+	
+	{
+		FILE *fp = fopen(fileName, "r");
+		for(int i=0; i<NUM_TESTS; ++i) {
+			char *checkP = check[i];
+			if(fp) {
+				fscanf(fp, "%s", checkP);
+			} else {
+				strcpy(checkP, "00000000000000000000000000000000");
+			}
+			//printf("MD5 = %s\n", checkP);
+		}
+		if(fp)
+			fclose(fp);
+	}
 
 	try
 	{
-		rv |= BorderTest("3edb600c1bd08dec602f5627089dc9d4");
+		int idx = 0;
+		int failed = 1;
+		char *checkP;
+		// comment and uncomment the below to try various tests
+#if 1
+		{
+			checkP = check[idx];
+			if((checkP = BorderTest(checkP)))
+			{
+				rv |= failed;
+				strcpy(check[idx], checkP);
+			}
+		}
+#endif
+		failed <<= 1, ++idx;
+
 	}
 	catch (std::string &errmsg)
 	{
 		std::cerr << errmsg << std::endl;
 		rv = 1;
+	}
+
+	if(rv && argc == 2) {
+		FILE *fp = fopen(fileName, "w");
+		if(fp) {
+			for(int i=0; i<NUM_TESTS; ++i) {
+				char *checkP = check[i];
+				if(fp) {
+					fprintf(fp, "%s\n", checkP);
+				}
+				printf("MD5 = %s\n", checkP);
+			}
+			fclose(fp);
+		}
 	}
 	
 	return (rv == 0 ? EXIT_SUCCESS : EXIT_FAILURE);

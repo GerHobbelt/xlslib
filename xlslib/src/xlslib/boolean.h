@@ -3,84 +3,82 @@
  * This file is part of xlslib -- A multiplatform, C/C++ library
  * for dynamic generation of Excel(TM) files.
  *
- * xlslib is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2010 Ger Hobbelt All Rights Reserved.
  *
- * xlslib is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with xlslib.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * Copyright 2010 Ger Hobbelt
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
  *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
  *
- * File description:
- *
- *
+ * THIS SOFTWARE IS PROVIDED BY David Hoerl ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL David Hoerl OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 #ifndef BOOLEAN_XL_H
 #define BOOLEAN_XL_H
 
-#include <xlsys.h>
-#include <common.h>
+#include "common/xlsys.h"
+#include "common/systype.h"
 
-#include <cell.h>
-#include <record.h>
-#include <unit.h>
+#include "xlslib/cell.h"	// superclass
 
-
-// #include <xls_pshpack2.h>
+// #include "common/xls_pshpack2.h"
 
 namespace xlslib_core
 {
+	class boolean_t : public cell_t
+	{
+		friend class worksheet;
 
-  class boolean_t: public cell_t
-    {
-	  friend class worksheet;
+	private:
+		boolean_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colval, bool value, xf_t* pxfval = NULL);
+		virtual ~boolean_t() {}
 
-    private:
-      boolean_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colval, bool value, xf_t* pxfval = NULL);
-	  virtual ~boolean_t(){};
-	  
-    public:
-      virtual size_t GetSize(void) const {return 12;};
-      virtual CUnit* GetData(CDataStorage &datastore) const;
+	public:
+		virtual size_t GetSize(void) const
+		{
+			return 12;
+		}
+
+		virtual CUnit* GetData(CDataStorage &datastore) const;
 
 	private:
 		bool num;
 
 	public:
-		bool GetBoolean(void) const {return !!num;};
-    };
+		bool GetBoolean(void) const {return !!num; }
+	};
 
 
-  // forward ref
+	// forward ref
 	class CDataStorage;
 
-  class CBoolean: public CRecord
-    {
-#if defined(LEIGHTWEIGHT_UNIT_FEATURE)
-	friend class CDataStorage;
-#endif
+	class CBoolean : public CRecord
+	{
+		friend class CDataStorage;
 
-    protected:
-      CBoolean(CDataStorage &datastore, const boolean_t& booldef);
+	protected:
+		CBoolean(CDataStorage &datastore, const boolean_t& booldef);
 
 	private:
-      virtual ~CBoolean();
-    };
-
+		virtual ~CBoolean();
+	};
 }
 
 
-// #include <xls_poppack.h>
+// #include "common/xls_poppack.h"
 
 #endif
-

@@ -89,7 +89,11 @@ typedef unsigned long long unsigned64_t;
 typedef wchar_t unichar_t;
 #define ustring wstring
 //typedef wstring ustring;
+#if _MSC_VER < 1600 
 typedef std::basic_string<unsigned16_t> u16string;
+#else
+using std::u16string; 
+#endif
 
 #elif defined(__FRAMEWORK__)				// MAC Framework
 
