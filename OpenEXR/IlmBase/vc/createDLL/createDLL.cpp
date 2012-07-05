@@ -1233,7 +1233,7 @@ int main(int argC, char* argV[])
     string::size_type pos;
 
     char tempDir[MAX_PATH];
-    int rt = GetTempPath(MAX_PATH, tempDir);
+    int rt = GetTempPathA(MAX_PATH, tempDir);
 
     // 20 less because we have to have room for the filename
     if (rt == 0 || rt > MAX_PATH - 20)
