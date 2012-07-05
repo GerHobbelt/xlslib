@@ -356,6 +356,7 @@ int load_file(unsigned8_t **buf_ref, size_t *buflen_ref, const char *filepath)
 	unsigned8_t *b = NULL;
 	size_t bsiz = 4096;
 	size_t blen = 0;
+	int bload;
 
 	f = fopen(filepath, "rb");
 
@@ -460,7 +461,7 @@ fail_dramatically:
 	*buf_ref = NULL;
 	*buflen_ref = 0;
 
-	int bload = 0;
+	bload = 0;
 	if (f)
 	{
 		bload = ferror(f);
