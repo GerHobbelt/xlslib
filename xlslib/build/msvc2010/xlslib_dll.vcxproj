@@ -34,32 +34,32 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Itanium'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Itanium'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -86,23 +86,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin/$(Platform)_MSVC2010.$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin/$(Platform)_MSVC2010.$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Itanium'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Itanium'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Itanium'">$(SolutionDir)bin/$(Platform)_MSVC2010.$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Itanium'">$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Itanium'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin/$(Platform)_MSVC2010.$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin/$(Platform)_MSVC2010.$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Itanium'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Itanium'">$(ProjectName)_$(Platform)_MSVC2008.$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Itanium'">$(SolutionDir)bin/$(Platform)_MSVC2010.$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Itanium'">$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Itanium'">false</LinkIncremental>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Itanium'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Itanium'" />
@@ -127,7 +127,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DLL;XP_WIN;WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>false</MinimalRebuild>
@@ -142,6 +142,7 @@
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4244;4127;4100;4706;4018;4389;4351;4103;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -155,14 +156,13 @@
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineX86</TargetMachine>
       <Profile>true</Profile>
+      <MapFileName>
+      </MapFileName>
     </Link>
     <PostBuildEvent>
-      <Message>process $(TargetPath) and copy it to $(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)</Message>
-      <Command>echo $(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-
-if not exist "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)" mkdir "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)"
-copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)"
+      <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -173,7 +173,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_WIN64;XP_WIN;WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>false</MinimalRebuild>
@@ -188,6 +188,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4244;4127;4100;4706;4018;4389;4351;4103;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -201,14 +202,13 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineX64</TargetMachine>
       <Profile>true</Profile>
+      <MapFileName>
+      </MapFileName>
     </Link>
     <PostBuildEvent>
-      <Message>process $(TargetPath) and copy it to $(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)</Message>
-      <Command>echo $(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-
-if not exist "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)" mkdir "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)"
-copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)"
+      <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -219,7 +219,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_WIN64;XP_WIN;WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>false</MinimalRebuild>
@@ -234,6 +234,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4244;4127;4100;4706;4018;4389;4351;4103;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -247,14 +248,13 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineIA64</TargetMachine>
       <Profile>true</Profile>
+      <MapFileName>
+      </MapFileName>
     </Link>
     <PostBuildEvent>
-      <Message>process $(TargetPath) and copy it to $(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)</Message>
-      <Command>echo $(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-
-if not exist "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)" mkdir "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)"
-copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)"
+      <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -267,7 +267,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>STATIC_JS_API;XP_WIN;WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -280,6 +280,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4244;4127;4100;4706;4018;4389;4351;4103;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -292,14 +293,13 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineX86</TargetMachine>
+      <MapFileName>
+      </MapFileName>
     </Link>
     <PostBuildEvent>
-      <Message>process $(TargetPath) and copy it to $(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)</Message>
-      <Command>echo $(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-
-if not exist "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)" mkdir "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)"
-copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)"
+      <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -315,7 +315,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_WIN64;XP_WIN;WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -328,6 +328,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4244;4127;4100;4706;4018;4389;4351;4103;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -340,14 +341,13 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineX64</TargetMachine>
+      <MapFileName>
+      </MapFileName>
     </Link>
     <PostBuildEvent>
-      <Message>process $(TargetPath) and copy it to $(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)</Message>
-      <Command>echo $(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-
-if not exist "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)" mkdir "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)"
-copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)"
+      <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -363,7 +363,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <OmitFramePointers>false</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN64;_WIN64;XP_WIN;WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -376,6 +376,7 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4244;4127;4100;4706;4018;4389;4351;4103;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -388,14 +389,13 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineIA64</TargetMachine>
+      <MapFileName>
+      </MapFileName>
     </Link>
     <PostBuildEvent>
-      <Message>process $(TargetPath) and copy it to $(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)</Message>
-      <Command>echo $(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin\Win32_MSVC2008.$(Configuration)\createDLL  -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-
-if not exist "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)" mkdir "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)"
-copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(TargetFileName)"
+      <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -508,9 +508,8 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
     <None Include="..\..\acinclude.m4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\OpenEXR\IlmBase\vc\vc9\IlmBase\createDLL\createDLL.vcxproj">
+    <ProjectReference Include="..\..\..\OpenEXR\IlmBase\vc\vc10\IlmBase\createDLL\createDLL.vcxproj">
       <Project>{10beb970-1565-4944-8768-81bd05dd0a3a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

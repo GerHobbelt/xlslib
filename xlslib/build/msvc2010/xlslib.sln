@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B173B550
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib_dll", "xlslib_dll.vcxproj", "{4A077629-8590-434C-9486-0D069DF341AF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "createDLL", "..\..\..\OpenEXR\IlmBase\vc\vc9\IlmBase\createDLL\createDLL.vcxproj", "{10BEB970-1565-4944-8768-81BD05DD0A3A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "createDLL", "..\..\..\OpenEXR\IlmBase\vc\vc10\IlmBase\createDLL\createDLL.vcxproj", "{10BEB970-1565-4944-8768-81BD05DD0A3A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib-testC", "xlslib-testC.vcxproj", "{7DA824B8-FE71-4F75-898F-7215DA0F5FF6}"
 EndProject
