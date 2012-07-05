@@ -1,38 +1,23 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{84D563DE-6E8D-49BC-B64D-441448DBA262}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{B173B550-A4DC-41F7-9997-49FD3D9556E5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib_dll", "xlslib_dll.vcproj", "{4A077629-8590-434C-9486-0D069DF341AF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{10BEB970-1565-4944-8768-81BD05DD0A3A} = {10BEB970-1565-4944-8768-81BD05DD0A3A}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib_dll", "xlslib_dll.vcxproj", "{4A077629-8590-434C-9486-0D069DF341AF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "createDLL", "..\..\..\OpenEXR\IlmBase\vc\vc9\IlmBase\createDLL\createDLL.vcproj", "{10BEB970-1565-4944-8768-81BD05DD0A3A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "createDLL", "..\..\..\OpenEXR\IlmBase\vc\vc9\IlmBase\createDLL\createDLL.vcxproj", "{10BEB970-1565-4944-8768-81BD05DD0A3A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib-testC", "xlslib-testC.vcproj", "{7DA824B8-FE71-4F75-898F-7215DA0F5FF6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9024B90A-422E-4E07-A497-992044A5B87B} = {9024B90A-422E-4E07-A497-992044A5B87B}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib-testC", "xlslib-testC.vcxproj", "{7DA824B8-FE71-4F75-898F-7215DA0F5FF6}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib-testCPP", "xlslib-testCPP.vcproj", "{6C87B8F9-8A2A-46A7-AEEF-AD2D952086ED}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4A077629-8590-434C-9486-0D069DF341AF} = {4A077629-8590-434C-9486-0D069DF341AF}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib-testCPP", "xlslib-testCPP.vcxproj", "{6C87B8F9-8A2A-46A7-AEEF-AD2D952086ED}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib_lib", "xlslib_lib.vcproj", "{9024B90A-422E-4E07-A497-992044A5B87B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib_lib", "xlslib_lib.vcxproj", "{9024B90A-422E-4E07-A497-992044A5B87B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib-PR2859188", "xlslib-PR2859188.vcproj", "{E755D2E2-4D43-4B1E-B694-9A1D805D2A7A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4A077629-8590-434C-9486-0D069DF341AF} = {4A077629-8590-434C-9486-0D069DF341AF}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib-PR2859188", "xlslib-PR2859188.vcxproj", "{E755D2E2-4D43-4B1E-B694-9A1D805D2A7A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib-PR3076678", "xlslib-PR3076678.vcproj", "{AA020425-F744-449C-9DDB-4C19B84B1434}"
-	ProjectSection(ProjectDependencies) = postProject
-		{4A077629-8590-434C-9486-0D069DF341AF} = {4A077629-8590-434C-9486-0D069DF341AF}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xlslib-PR3076678", "xlslib-PR3076678.vcxproj", "{AA020425-F744-449C-9DDB-4C19B84B1434}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

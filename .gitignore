@@ -10,3 +10,31 @@
 *.lai
 *.la
 *.a
+
+# Backup files from various editors
+*.bak
+*~
+
+# GCC / GNU / UNIX litter
+*.depend
+.deps
+.libs
+Makefile.in
+
+# Microsofty dungheap
+*.aps
+
+*.exe
+*.dll
+*.layout
+*.res
+*.user
+
+xlslib/build/msvc2010/bin/
+xlslib/build/msvc2010/obj/
+xlslib/build/msvc2010/ipch/
+
+*.suo
+*.sdf
+*.opensdf
+
