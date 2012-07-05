@@ -1,0 +1,71 @@
+*.sh text eol=lf
+*.ac text eol=lf
+*.am text eol=lf
+*.sh text export-ignore
+.gitattributes  text export-ignore
+.gitignore text export-ignore
+
+*.doc  diff=astextplain
+*.DOC    diff=astextplain
+*.docx    diff=astextplain
+*.DOCX    diff=astextplain
+*.xls  diff=astextplain
+*.XLS    diff=astextplain
+*.xlsx    diff=astextplain
+*.XLSX    diff=astextplain
+*.dot    diff=astextplain
+*.DOT    diff=astextplain
+*.pdf    diff=astextplain
+*.PDF    diff=astextplain
+*.rtf    diff=astextplain
+*.RTF    diff=astextplain
+
+*.jpg      binary
+*.png     binary
+*.gif     binary
+*.icons     binary
+
+*.cs text diff=csharp 
+*.vb text
+*.c text
+*.cpp text
+*.cxx text
+*.cc text
+*.h text
+*.hxx text
+*.hh text
+*.py text
+*.rb text
+*.java text
+*.html text
+*.htm text
+*.css text
+*.scss text
+*.sass text
+*.less text
+*.js text
+*.lisp text
+*.clj text
+*.sql text
+*.php text
+*.lua text
+*.m text
+*.asm text
+*.erl text
+*.fs text
+*.fsx text
+*.hs text
+
+# Xcode
+*.pbxproj text eol=crlf merge=union 
+.* icns binary
+
+# Visual Studio
+*.csproj text merge=union 
+*.vbproj text merge=union 
+*.fsproj text merge=union 
+*.dbproj text merge=union 
+*.vcproj text eol=crlf merge=union 
+*.vcxproj text eol=crlf merge=union 
+*.vsprops text eol=crlf merge=union 
+*.sln text eol=crlf merge=union 
