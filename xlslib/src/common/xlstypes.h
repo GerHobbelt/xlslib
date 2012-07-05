@@ -84,30 +84,39 @@ typedef unsigned long long unsigned64_t;
 
 #if defined(__cplusplus)					// ALL C++ users
 
+namespace xlslib_strings
+{
+
 #if defined(_MSC_VER) && defined(WIN32)		// Windows
 
 typedef wchar_t unichar_t;
-#define ustring wstring
-//typedef wstring ustring;
+//#define ustring wstring
+typedef std::wstring ustring;
+typedef ustring wstring;
 typedef std::basic_string<unsigned16_t> u16string;
+typedef std::string string;
 
 #elif defined(__FRAMEWORK__)				// MAC Framework
 
-#include "xlconfig.h"
+#include "common/xlconfig.h"
 #undef HAVE_ICONV
 //typedef unichar unichar_t;
 #define unichar_t unsigned16_t
 
 #define ustring basic_string<unsigned16_t>
 typedef std::basic_string<unsigned16_t> u16string;
+typedef std::string string;
 
 #else										// All other C++
 
 typedef wchar_t unichar_t;
 #define ustring wstring
 typedef std::basic_string<unsigned16_t> u16string;
+typedef std::string string;
 
 #endif	// defined(_MSC_VER) && defined(WIN32)
+
+}
 
 #endif	// C++
 

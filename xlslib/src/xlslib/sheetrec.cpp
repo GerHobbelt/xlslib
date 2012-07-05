@@ -50,6 +50,8 @@
 
 
 using namespace xlslib_core;
+using namespace xlslib_strings;
+
 
 #define MAX_ROWBLOCK_SIZE            16
 // was: 32, but CONTINUE-d DBCELLs are not liked by 2003 ???
@@ -57,7 +59,7 @@ using namespace xlslib_core;
 #define RB_DBCELL_MINSIZE             8
 #define RB_DBCELL_CELLSIZEOFFSET      2
 
-// People using xlslib with at least 1200 colums maybe more - bug fix to such a file - so this comment has to be incorrect for current Excel versions
+// People using xlslib with at least 1200 columns maybe more - bug fix to such a file - so this comment has to be incorrect for current Excel versions
 #define MAX_COLUMNS_PER_ROW			256
 // (out of date): Excel 2003 limit: 256 columns per row. (Update this when we upgrade this lib to support BIFF12 !)
 
@@ -635,7 +637,7 @@ cell_t* worksheet::label(unsigned32_t row, unsigned32_t col,
 }
 
 cell_t* worksheet::label(unsigned32_t row, unsigned32_t col,
-						 const std::ustring& strlabel, xf_t* pxformat)
+						 const ustring& strlabel, xf_t* pxformat)
 {
 	label_t* lbl;
 
@@ -716,7 +718,7 @@ cell_t* worksheet::note(unsigned32_t row, unsigned32_t col,
 }
 
 cell_t* worksheet::note(unsigned32_t row, unsigned32_t col,
-						const std::ustring& remark, const std::ustring& author, xf_t* pxformat)
+						const ustring& remark, const ustring& author, xf_t* pxformat)
 {
 	note_t* note = new note_t(m_GlobalRecords, row, col, remark, author, pxformat);
 	AddCell(note);
@@ -1138,7 +1140,7 @@ void worksheet::hyperLink(const cell_t *cell, const std::string& url, const std:
 
 	m_HyperLinks.push_back(link);
 }
-void worksheet::hyperLink(const cell_t *cell, const std::ustring& url, const std::ustring& mark)
+void worksheet::hyperLink(const cell_t *cell, const ustring& url, const ustring& mark)
 {
 	struct HyperLink *link = new HyperLink;
 

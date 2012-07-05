@@ -35,8 +35,8 @@
 #include "xlslib/common.h"
 
 
-using namespace std;
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 static const unsigned16_t convFail[] = { 'i', 'c', 'o', 'n', 'v', ' ', 'f', 'a', 'i', 'l', 'e', 'd', '!', 0 };
 
@@ -832,9 +832,9 @@ void CGlobalRecords::char2str16(const string& str1, u16string& str2)
 
 #else
 
-void CGlobalRecords::char2str16(const string& str1, u16string& str2)
+void CGlobalRecords::char2str16(const std::string& str1, u16string& str2)
 {
-	string::const_iterator cBegin, cEnd;
+	std::string::const_iterator cBegin, cEnd;
 	size_t len;
 
 	str2.clear();

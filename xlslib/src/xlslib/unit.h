@@ -123,8 +123,8 @@ namespace xlslib_core
 		};
 
 		signed8_t AddUnicodeString(CGlobalRecords& gRecords, const std::string& str, XlsUnicodeStringFormat_t fmt /* = LEN2_FLAGS_UNICODE */ );
-		signed8_t AddUnicodeString(const u16string& newdata, XlsUnicodeStringFormat_t fmt /* = LEN2_FLAGS_UNICODE */ );
-		size_t UnicodeStringLength(const u16string& str16, size_t& strLen, bool& isAscii, XlsUnicodeStringFormat_t fmt /* = LEN2_FLAGS_UNICODE */ );
+		signed8_t AddUnicodeString(const xlslib_strings::u16string& newdata, XlsUnicodeStringFormat_t fmt /* = LEN2_FLAGS_UNICODE */ );
+		size_t UnicodeStringLength(const xlslib_strings::u16string& str16, size_t& strLen, bool& isAscii, XlsUnicodeStringFormat_t fmt /* = LEN2_FLAGS_UNICODE */ );
 
 		signed8_t GetValue16From(unsigned16_t* val, unsigned32_t index) const;
 		signed8_t GetValue32From(unsigned32_t* val, unsigned32_t index) const;

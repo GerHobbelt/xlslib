@@ -36,8 +36,8 @@
 #include "oledoc/olefs.h"
 #include "xlslib/datast.h"
 
-using namespace std;
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 /*
  ***********************************

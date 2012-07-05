@@ -47,8 +47,8 @@
 
 #include "xlslib.h"
 
-using namespace std;
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 extern "C" {
 	// Workbook
@@ -61,7 +61,7 @@ extern "C" {
 																}
 	worksheet *xlsWorkbookSheetW(workbook *w, const unichar_t *sheetname)
 																{
-																	std::ustring str = sheetname;
+																	ustring str = sheetname;
 																	return w->sheet(str);
 																}
 	worksheet *xlsWorkbookGetSheet(workbook *w, unsigned16_t sheetnum)
@@ -76,7 +76,7 @@ extern "C" {
 																	return w->format(str);
 																}
 	format_t *xlsWorkbookFormatW(workbook *w, const unichar_t *name) {
-																	std::ustring str = name;
+																	ustring str = name;
 																	return w->format(str);
 																}
 	xf_t *xlsWorkbookxFormat(workbook *w)						{ return w->xformat(); }
@@ -126,7 +126,7 @@ extern "C" {
 																}
 	cell_t *xlsWorksheetLabelW(worksheet *w, unsigned32_t row, unsigned32_t col, const unichar_t *strlabel, xf_t *pxformat)
 																{ 
-																	std::ustring str = strlabel;
+																	ustring str = strlabel;
 																	return w->label(row, col, strlabel, pxformat);
 																}
 	cell_t *xlsWorksheetBlank(worksheet *w, unsigned32_t row, unsigned32_t col, xf_t *pxformat)
@@ -153,8 +153,8 @@ extern "C" {
 																}
 	cell_t *xlsWorksheetNoteW(worksheet *w, unsigned32_t row, unsigned32_t col, const unichar_t *remark, const unichar_t *author, xf_t *pxformat)
 																{ 
-																	std::ustring cmt = remark;
-																	std::ustring auth = author;
+																	ustring cmt = remark;
+																	ustring auth = author;
 
 																	return w->note(row, col, cmt, auth, pxformat); 
 																}
@@ -167,8 +167,8 @@ extern "C" {
 																}
 	void xlsWorksheetHyperLinkW(worksheet *w, cell_t *cell, const unichar_t *url, const unichar_t *mark)
 																{ 
-																	std::ustring sUrl = url;
-																	std::ustring sMark = mark ? mark : L"";
+																	ustring sUrl = url;
+																	ustring sMark = mark ? mark : L"";
 
 																	w->hyperLink(cell, sUrl, sMark); 
 																}

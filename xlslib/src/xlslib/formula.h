@@ -1260,16 +1260,16 @@ namespace xlslib_core
 		bool SetBoolean(bool value);
 		signed32_t SetInteger(signed32_t value);
 		double SetFloatingPoint(double value);
-		const u16string& SetText(const std::string& value);
-		const u16string& SetText(const std::ustring& value);
+		const xlslib_strings::u16string& SetText(const std::string& value);
+		const xlslib_strings::u16string& SetText(const xlslib_strings::ustring& value);
 #ifndef __FRAMEWORK__
-		const u16string& SetText(const u16string& value);
+		const xlslib_strings::u16string& SetText(const xlslib_strings::u16string& value);
 #endif
 		errcode_t SetErrorCode(errcode_t value);
 
 		unsigned64_t GetEncodedValue(void) const;
 		bool EncodedValueIsString(void) const;
-		const u16string* GetStringValue(void) const;
+		const xlslib_strings::u16string* GetStringValue(void) const;
 
 	protected:
 		union
@@ -1277,7 +1277,7 @@ namespace xlslib_core
 			bool b;
 			signed32_t i;
 			double f;
-			u16string *s;
+			xlslib_strings::u16string *s;
 			errcode_t e;
 		} value;
 		enum estval_type_t
@@ -1407,9 +1407,9 @@ namespace xlslib_core
 	{
 	public:
 		text_value_node_t(CGlobalRecords& gRecords, const std::string& value);
-		text_value_node_t(CGlobalRecords& gRecords, const std::ustring& value);
+		text_value_node_t(CGlobalRecords& gRecords, const xlslib_strings::ustring& value);
 #ifndef __FRAMEWORK__
-		text_value_node_t(CGlobalRecords& gRecords, const u16string& value);
+		text_value_node_t(CGlobalRecords& gRecords, const xlslib_strings::u16string& value);
 #endif
 		virtual ~text_value_node_t();
 
@@ -1424,7 +1424,7 @@ namespace xlslib_core
 		virtual void GetResultEstimate(estimated_formula_result_t &dst) const;
 
 	protected:
-		u16string value;
+		xlslib_strings::u16string value;
 
 		CGlobalRecords& m_GlobalRecords;
 
@@ -1656,7 +1656,7 @@ namespace xlslib_core
 		error_value_node_t *error_value(errcode_t value);
 		missing_arg_node_t *missing_arg(void);
 		text_value_node_t *text(const std::string& value);
-		text_value_node_t *text(const u16string& value);
+		text_value_node_t *text(const xlslib_strings::u16string& value);
 		
 		cell_deref_node_t *cell(const cell_t& value, cell_addr_mode_t attr, cell_op_class_t opclass = CELLOP_AS_VALUE);
 		cell_deref_node_t *cell(const cell_t& value, const worksheet* ws, cell_addr_mode_t attr, cell_op_class_t opclass = CELLOP_AS_VALUE);

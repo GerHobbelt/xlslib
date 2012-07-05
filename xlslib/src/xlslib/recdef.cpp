@@ -35,8 +35,8 @@
 #include "xlslib/rectypes.h"
 
 
-using namespace std;
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 boundsheet_t::boundsheet_t(CGlobalRecords& gRecords) :
 	sheetname(),

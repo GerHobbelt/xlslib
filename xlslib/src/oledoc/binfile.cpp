@@ -31,8 +31,8 @@
 #include "oledoc/binfile.h"
 #include "xlslib/unit.h"
 
-using namespace std;
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 /*
  ******************************
@@ -53,7 +53,7 @@ CBinFile::~CBinFile()
 int CBinFile::Open(const string& file_name)
 {
 	Close();
-	m_File.open(file_name.c_str(), ios_base::binary|ios_base::out);
+	m_File.open(file_name.c_str(), std::ios_base::binary|std::ios_base::out);
 
 	return m_File.good() ? NO_ERRORS : FILE_ERROR;
 }
@@ -181,7 +181,7 @@ int CBinFile::write_service(const char *buffer, size_t size)
 {
 	if(m_File.is_open()) {
 		if(size > 1) {
-			m_File.write(buffer, static_cast<streamsize>(size));
+			m_File.write(buffer, static_cast<std::streamsize>(size));
 		} else
 		if(size == 1) {
 			m_File.put(*buffer);

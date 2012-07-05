@@ -49,8 +49,8 @@
 #include <errno.h>
 #endif
 
-using namespace std;
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 
 #define CHANGE_DUMPSTATE(state) {				\

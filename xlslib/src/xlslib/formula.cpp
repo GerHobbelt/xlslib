@@ -43,6 +43,7 @@
 #endif
 
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 /*
  *  The ptgSheet and ptgEndSheet tokens are no longer used. The external sheet references are contained in the ptgNameX, ptgRef3d, and ptgArea3d tokens.
@@ -1529,7 +1530,7 @@ text_value_node_t::text_value_node_t(CGlobalRecords& gRecords, const std::string
 	m_GlobalRecords.char2str16(v, this->value);
 }
 
-text_value_node_t::text_value_node_t(CGlobalRecords& gRecords, const std::ustring& v) :
+text_value_node_t::text_value_node_t(CGlobalRecords& gRecords, const ustring& v) :
 	terminal_node_t(gRecords),
 	m_GlobalRecords(gRecords)
 {
@@ -3096,7 +3097,7 @@ const u16string& estimated_formula_result_t::SetText(const std::string& v)
 	return *value.s;
 }
 
-const u16string& estimated_formula_result_t::SetText(const std::ustring& v)
+const u16string& estimated_formula_result_t::SetText(const ustring& v)
 {
 	clear_value(ESTVAL_STRING);
 	m_GlobalRecords.wide2str16(v, *value.s);

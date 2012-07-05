@@ -90,7 +90,7 @@ namespace xlslib_core
 #endif
 		void		  AddBoundingSheet(unsigned32_t streampos,
 									   unsigned16_t attributes,
-									   u16string& sheetname
+									   xlslib_strings::u16string& sheetname
 									   );
 		void		  AddBoundingSheet(boundsheet_t* bsheetdef);
 		void		  AddFont(font_t* newfont);
@@ -121,12 +121,12 @@ namespace xlslib_core
 		size_t		  EstimateNumBiffUnitsNeeded4Header(void);
 
 
-		void wide2str16(const std::ustring& str1, u16string& str2);
-		void char2str16(const std::string& str1, u16string& str2);
-		void str16toascii(const u16string& str1, std::string& str2);
+		void wide2str16(const xlslib_strings::ustring& str1, xlslib_strings::u16string& str2);
+		void char2str16(const std::string& str1, xlslib_strings::u16string& str2);
+		void str16toascii(const xlslib_strings::u16string& str1, std::string& str2);
 
 		static bool IsASCII(const std::string& str);
-		static bool IsASCII(const u16string& str);
+		static bool IsASCII(const xlslib_strings::u16string& str);
 
 	private:
 		CGlobalRecords(const CGlobalRecords& that);

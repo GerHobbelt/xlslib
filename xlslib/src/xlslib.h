@@ -320,8 +320,9 @@ typedef enum
 #ifdef CPP_BRIDGE_XLS
 
 #define EXTERN_TYPE
-extern "C" {
 using namespace xlslib_core;
+using namespace xlslib_strings;
+extern "C" {
 
 #else
 

@@ -41,6 +41,7 @@
 #include "xlslib/datast.h"
 
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 /*
  *********************************************************************************

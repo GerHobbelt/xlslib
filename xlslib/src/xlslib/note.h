@@ -46,9 +46,9 @@ namespace xlslib_core
 
 	private:
 		note_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colval, const std::string& text, const std::string& author, xf_t* pxfval = NULL);
-		note_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colval, const std::ustring& text, const std::ustring& author, xf_t* pxfval = NULL);
+		note_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colval, const xlslib_strings::ustring& text, const xlslib_strings::ustring& author, xf_t* pxfval = NULL);
 #ifndef __FRAMEWORK__
-		note_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colval, const u16string& text, const u16string& author, xf_t* pxfval = NULL);
+		note_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colval, const xlslib_strings::u16string& text, const xlslib_strings::u16string& author, xf_t* pxfval = NULL);
 #endif
 		virtual ~note_t();
 
@@ -57,12 +57,12 @@ namespace xlslib_core
 		virtual CUnit* GetData(CDataStorage &datastore) const;
 
 	private:
-		u16string text;
-		u16string author;
+		xlslib_strings::u16string text;
+		xlslib_strings::u16string author;
 
 	public:
-		const u16string& GetNote(void) const {return text; }
-		const u16string& GetAuthor(void) const {return author; }
+		const xlslib_strings::u16string& GetNote(void) const {return text; }
+		const xlslib_strings::u16string& GetAuthor(void) const {return author; }
 	};
 
 

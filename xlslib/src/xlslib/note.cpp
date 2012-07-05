@@ -36,6 +36,7 @@
 
 
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 /*
  *********************************
@@ -49,7 +50,7 @@ note_t::note_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colva
 	gRecords.char2str16(auth, this->author);
 }
 
-note_t::note_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colval, const std::ustring& msg, const std::ustring& auth, xf_t* pxfval) :
+note_t::note_t(CGlobalRecords& gRecords, unsigned32_t rowval, unsigned32_t colval, const ustring& msg, const ustring& auth, xf_t* pxfval) :
 	cell_t(gRecords, rowval, colval, pxfval)
 {
 	gRecords.wide2str16(msg, this->text);

@@ -59,6 +59,8 @@
 // These may be needed for other compilers as well.
 #endif
 
+using namespace xlslib_strings;
+
 namespace xlslib_core
 {
 	/*
@@ -178,9 +180,9 @@ namespace xlslib_core
 	{
 		XL_ASSERT(index != INVALID_STORE_INDEX);
 		XL_ASSERT(index >= 0 ? index < (int)store.size() : 1);
-		XL_ASSERT(index < 0 ? (-1 ^ index) < (int)store.size() : 1);
+		XL_ASSERT(index < 0 ? (~index) < (int)store.size() : 1);
 
-		return index >= 0 ? store[(size_t)index] : store[-1ul ^ (size_t)index];
+		return index >= 0 ? store[(size_t)index] : store[~(size_t)index];
 	}
 
 	// Queue a new unit

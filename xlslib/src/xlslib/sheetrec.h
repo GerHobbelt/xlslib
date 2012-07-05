@@ -132,8 +132,8 @@ namespace xlslib_core
 	{
 		unsigned16_t row;
 		unsigned16_t col;
-		u16string url;
-		u16string mark;
+		xlslib_strings::u16string url;
+		xlslib_strings::u16string mark;
 	};
 	typedef std::vector<xlslib_core::HyperLink * XLSLIB_DFLT_ALLOCATOR> HyperLinkList_t;
 	typedef HyperLinkList_t::iterator HyperLinkList_Itor_t;
@@ -238,7 +238,7 @@ namespace xlslib_core
 		cell_t* label(unsigned32_t row, unsigned32_t col,
 					  const std::string& strlabel, xf_t* pxformat = NULL);
 		cell_t* label(unsigned32_t row, unsigned32_t col,
-					  const std::ustring& strlabel, xf_t* pxformat = NULL);
+					  const xlslib_strings::ustring& strlabel, xf_t* pxformat = NULL);
 
 		cell_t* number(unsigned32_t row, unsigned32_t col,
 					   double numval, format_number_t fmtval, xf_t* pxformat);  // Deprecated
@@ -259,7 +259,7 @@ namespace xlslib_core
 		cell_t* note(unsigned32_t row, unsigned32_t col,
 					 const std::string& remark, const std::string& author, xf_t* pxformat = NULL);
 		cell_t* note(unsigned32_t row, unsigned32_t col,
-					 const std::ustring& remark, const std::ustring& author, xf_t* pxformat = NULL);
+					 const xlslib_strings::ustring& remark, const xlslib_strings::ustring& author, xf_t* pxformat = NULL);
 
 		cell_t* formula(unsigned32_t row, unsigned32_t col,
 						expression_node_t* expression_root, bool auto_destruct_expression_tree = false,
@@ -267,7 +267,7 @@ namespace xlslib_core
 
 		// define a cell (label, number, etc) - apply proper url (http://blah.blah), possible text mark too (minus the '#')
 		void hyperLink(const cell_t *cell, const std::string& url, const std::string& mark = std::string());
-		void hyperLink(const cell_t *cell, const std::ustring& url, const std::ustring& mark = std::ustring());
+		void hyperLink(const cell_t *cell, const xlslib_strings::ustring& url, const xlslib_strings::ustring& mark = xlslib_strings::ustring());
 	};
 
 	typedef std::vector<xlslib_core::worksheet*> Sheets_Vector_t;

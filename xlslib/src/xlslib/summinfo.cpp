@@ -36,8 +36,8 @@
 #include "xlslib/datast.h"
 
 
-using namespace std;
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 const signed32_t xlslib_core::property2summary[] =
 {

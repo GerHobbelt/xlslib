@@ -33,8 +33,8 @@
 #include "xlslib/globalrec.h"
 #include "xlslib/rectypes.h"
 
-using namespace std;
 using namespace xlslib_core;
+using namespace xlslib_strings;
 
 
 static const unsigned16_t format2index_arr[] =
@@ -109,7 +109,7 @@ format_t::format_t(CGlobalRecords& gRecords, const std::string& fmtstr) :
 	gRecords.char2str16(fmtstr, formatstr);
 }
 
-format_t::format_t(CGlobalRecords& gRecords, const std::ustring& fmtstr) :
+format_t::format_t(CGlobalRecords& gRecords, const ustring& fmtstr) :
 	formatstr(),
 	index(0),
 	m_usage_counter(0),
