@@ -3,89 +3,82 @@
  * This file is part of xlslib -- A multiplatform, C/C++ library
  * for dynamic generation of Excel(TM) files.
  *
- * xlslib is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2004 Yeico S. A. de C. V. All Rights Reserved.
+ * Copyright 2008-2011 David Hoerl All Rights Reserved.
  *
- * xlslib is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with xlslib.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * Copyright 2004 Yeico S. A. de C. V.
- * Copyright 2008 David Hoerl
- *  
- * $Source: /cvsroot/xlslib/xlslib/src/xlslib/record.h,v $
- * $Revision: 1.4 $
- * $Author: dhoerl $
- * $Date: 2009/01/08 02:52:47 $
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
  *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
  *
- * File description:
- *
- *
+ * THIS SOFTWARE IS PROVIDED BY David Hoerl ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL David Hoerl OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 
 #ifndef RECORD_H
 #define RECORD_H
 
-#include <config.h>
-#include <common.h>
-#include <rectypes.h>
-#include <unit.h>
+#include "common/xlsys.h"
+#include "common/systype.h"
+
+#include "xlslib/unit.h"	// superclass
+
+
+// #include "common/xls_pshpack2.h"
 
 namespace xlslib_core
 {
-  /* 
-******************************
-CRecord class declaration
-******************************
-*/
-  class CRecord: public CUnit
-    {
-    protected:
-      unsigned16_t m_Num;
-      //unsigned32_t streamPos;
+	// forward ref
+	class CDataStorage;
 
-    public:
-      CRecord();
-      ~CRecord();
-  
-      void SetRecordType(unsigned16_t rtype);
-      unsigned16_t GetRecordType();
+	/*
+	 ******************************
+	 * CRecord class declaration
+	 ******************************
+	 */
+	class CRecord : public CUnit
+	{
+		friend class CDataStorage;
 
-      void SetRecordLength(unsigned32_t);
-      unsigned16_t GetRecordLength();
+	protected:
+		//unsigned16_t m_Num;
+		//unsigned32_t streamPos;
 
-      unsigned8_t* GetRecordDataBuffer();
-      unsigned32_t GetRecordDataSize();
+	protected:
+		CRecord(CDataStorage &datastore);
+		virtual ~CRecord();
 
-      //void SetStreamPos(unsigned32_t pos) { streamPos = pos; };
-      //unsigned32_t GetStreamPos() { return streamPos; };
-    };
+	public:
+		signed8_t SetRecordType(unsigned16_t rtype);
+		unsigned16_t GetRecordType() const;
+
+		signed8_t SetRecordLength(size_t len);
+		size_t GetRecordLength() const;
+
+		signed8_t SetRecordTypeIndexed(unsigned16_t rtype, size_t index);
+		signed8_t SetRecordLengthIndexed(size_t len, size_t index);
+
+		const unsigned8_t* GetRecordDataBuffer() const;
+		size_t GetRecordDataSize() const;
+
+		//void SetStreamPos(size_t pos) { streamPos = pos; };
+		//size_t GetStreamPos() { return streamPos; };
+	};
 }
-#endif //RECORD_H
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * $Log: record.h,v $
- * Revision 1.4  2009/01/08 02:52:47  dhoerl
- * December Rework
- *
- * Revision 1.3  2008/12/11 21:12:16  dhoerl
- * Cleanup
- *
- * Revision 1.2  2008/10/25 18:39:54  dhoerl
- * 2008
- *
- * Revision 1.1.1.1  2004/08/27 16:31:54  darioglz
- * Initial Import.
- *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+// #include "common/xls_poppack.h"
 
+#endif

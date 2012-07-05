@@ -3,38 +3,43 @@
  * This file is part of xlslib -- A multiplatform, C/C++ library
  * for dynamic generation of Excel(TM) files.
  *
- * xlslib is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2009 David Hoerl All Rights Reserved.
  *
- * xlslib is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with xlslib.  If not, see <http://www.gnu.org/licenses/>.
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
  * 
- * Copyright 2009 David Hoerl
- *  
- * $Source: /cvsroot/xlslib/xlslib/src/common/xlstypes.h,v $
- * $Revision: 1.1 $
- * $Author: dhoerl $
- * $Date: 2009/03/02 04:21:46 $
- *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
- * File description:
- *
- *	type declaration
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
+ * 
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY David Hoerl ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL David Hoerl OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #ifndef XLSTYPES_H
 #define XLSTYPES_H
 
-// Setup our typedefs now - would like to get them from from systype.h
+#if defined(__cplusplus)					// ALL C++ users
+
+#include <list>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+#endif
+
+// Setup our typedefs now - would like to get them from systype.h
 #ifdef uint8_t				// if we have this one we will have all the others too
 
 typedef uint8_t				unsigned8_t;
@@ -60,7 +65,7 @@ typedef int                signed32_t;
 
 #if defined(_MSC_VER) && defined(WIN32)		// Windows
 
-typedef __int64 unsigned64_t;
+typedef unsigned __int64 unsigned64_t;
 
 #else										// not windows
 
@@ -81,26 +86,24 @@ typedef unsigned long long unsigned64_t;
 
 #if defined(_MSC_VER) && defined(WIN32)		// Windows
 
-typedef wchar_t uchar_t;
+typedef wchar_t unichar_t;
 #define ustring wstring
 //typedef wstring ustring;
 typedef std::basic_string<unsigned16_t> u16string;
 
 #elif defined(__FRAMEWORK__)				// MAC Framework
 
+#include "xlconfig.h"
 #undef HAVE_ICONV
+//typedef unichar unichar_t;
+#define unichar_t unsigned16_t
 
-//typedef unichar uchar_t;
-#define uchar_t unsigned16_t
-
-//typedef std::basic_string<unsigned16_t> ustring;
 #define ustring basic_string<unsigned16_t>
-
 typedef std::basic_string<unsigned16_t> u16string;
 
 #else										// All other C++
 
-typedef wchar_t uchar_t;
+typedef wchar_t unichar_t;
 #define ustring wstring
 typedef std::basic_string<unsigned16_t> u16string;
 

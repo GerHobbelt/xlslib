@@ -3,25 +3,27 @@
  * This file is part of xlslib -- A multiplatform, C/C++ library
  * for dynamic generation of Excel(TM) files.
  *
- * xlslib is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2008-2011 David Hoerl All Rights Reserved.
  *
- * xlslib is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with xlslib.  If not, see <http://www.gnu.org/licenses/>.
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
  * 
- * Copyright 2008 David Hoerl
- *  
- * $Source: /cvsroot/xlslib/xlslib/src/common/xlslib.h,v $
- * $Revision: 1.10 $
- * $Author: dhoerl $
- * $Date: 2009/03/02 04:36:14 $
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
+ * 
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY David Hoerl ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL David Hoerl OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
@@ -37,17 +39,29 @@
 #if defined(__cplusplus)
 
 #include <string>
-#include <xlstypes.h>
-#include <globalrec.h>
-#include <workbook.h>
+
+#include "common/xlsys.h"
+#include "common/xlstypes.h"
+
+#include "xlslib/record.h"
+#include "xlslib/globalrec.h"
+#include "xlslib/range.h"
+#include "xlslib/colinfo.h"
+#include "xlslib/row.h"
+#include "xlslib/formula.h"
+
+#include "xlslib/sheetrec.h"
+#include "xlslib/workbook.h"
 
 #if defined(__FRAMEWORK__)
 using namespace xlslib_core;
 #endif
 
-#else // defined(__cplusplus)
+#else
 
-#include <xlstypes.h>
+#ifndef __OBJC__    // framework needs a more qualified path
+#include "common/xlstypes.h"
+#endif
 
 // Summary options
 typedef enum {
@@ -55,12 +69,14 @@ typedef enum {
 	PROP_CATEGORY,
 	PROP_COMMENTS,
 	PROP_COMPANY,
-	PROP_CREATINGAPPLICATION,
+	PROP_CREATINGAPPLICATION,	// [i_a] Cannot see anywhere this is displayed (TODO: remove? use? reserved for future use?)
 	PROP_KEYWORDS,
 	PROP_MANAGER,
 	PROP_REVISION,
 	PROP_SUBJECT,
-	PROP_TITLE
+	PROP_TITLE,
+	
+	PROP_LAST
 } property_t;
 
 // Format options
@@ -103,7 +119,8 @@ typedef enum
   FMT_SCIENTIFIC2,				// ##0.0E+0
   FMT_TEXT          			// @
 } format_number_t;
-// Good explanation ofcustom formats: http://www.ozgrid.com/Excel/CustomFormats.htm
+// good resource for format strings: http://www.mvps.org/dmcritchie/excel/formula.htm
+// Good explanation of custom formats: http://www.ozgrid.com/Excel/CustomFormats.htm
 // MS examples (need Windows): http://download.microsoft.com/download/excel97win/sample/1.0/WIN98Me/EN-US/Nmbrfrmt.exe
 // Google this for MS help: "Create or delete a custom number format"
 
@@ -285,13 +302,24 @@ typedef enum
 
 } underline_option_t;
 
+typedef enum
+{
+	XLERR_NULL  = 0x00, // #NULL!
+	XLERR_DIV0  = 0x07, // #DIV/0!
+	XLERR_VALUE = 0x0F, // #VALUE!
+	XLERR_REF   = 0x17, // #REF!
+	XLERR_NAME  = 0x1D, // #NAME?
+	XLERR_NUM   = 0x24, // #NUM!
+	XLERR_N_A   = 0x2A, // #N/A!
+} errcode_t;
+
 #endif // ifdef __cpluplus
 
 #if !(defined(__cplusplus) || defined(__OBJC__) ) || defined(CPP_BRIDGE_XLS)
 
 #ifdef CPP_BRIDGE_XLS
 
-#define EXTERN_TYPE 
+#define EXTERN_TYPE
 extern "C" {
 using namespace xlslib_core;
 
@@ -299,7 +327,7 @@ using namespace xlslib_core;
 
 #define EXTERN_TYPE extern
 
-typedef wchar_t uchar_t;
+typedef wchar_t unichar_t;
 
 typedef struct _workbook workbook;
 typedef struct _worksheet worksheet;
@@ -316,17 +344,17 @@ EXTERN_TYPE workbook *xlsNewWorkbook(void);
 EXTERN_TYPE void xlsDeleteWorkbook(workbook *w);
 
 EXTERN_TYPE worksheet *xlsWorkbookSheet(workbook *w, const char *sheetname);
-EXTERN_TYPE worksheet *xlsWorkbookSheetW(workbook *w, const uchar_t *sheetname);
+EXTERN_TYPE worksheet *xlsWorkbookSheetW(workbook *w, const unichar_t *sheetname);
 EXTERN_TYPE worksheet *xlsWorkbookGetSheet(workbook *w, unsigned16_t sheetnum);
 EXTERN_TYPE font_t *xlsWorkbookFont(workbook *w, const char *name);
 EXTERN_TYPE format_t *xlsWorkbookFormat(workbook *w, const char *name);
-EXTERN_TYPE format_t *xlsWorkbookFormatW(workbook *w, const uchar_t *name);
+EXTERN_TYPE format_t *xlsWorkbookFormatW(workbook *w, const unichar_t *name);
 EXTERN_TYPE xf_t *xlsWorkbookxFormat(workbook *w);
 EXTERN_TYPE xf_t *xlsWorkbookxFormatFont(workbook *w, font_t *font);
 #ifdef HAVE_ICONV
 EXTERN_TYPE	int xlsWorkbookIconvInType(workbook *w, const char *inType);
 #endif
-EXTERN_TYPE	uint8_t xlsWorkbookProperty(workbook *w, property_t prop, const char *s);
+EXTERN_TYPE	unsigned8_t xlsWorkbookProperty(workbook *w, property_t prop, const char *s);
 EXTERN_TYPE	void xlsWorkBookWindPosition(workbook *w, unsigned16_t horz, unsigned16_t vert);
 EXTERN_TYPE	void xlsWorkBookWindSize(workbook *w, unsigned16_t horz, unsigned16_t vert);
 EXTERN_TYPE	void xlsWorkBookFirstTab(workbook *w, unsigned16_t firstTab);
@@ -335,19 +363,31 @@ EXTERN_TYPE	int xlsWorkbookDump(workbook *w, const char *filename);
 
 // Worksheet
 EXTERN_TYPE void xlsWorksheetMakeActive(worksheet *w);	// Make this sheet the selected sheet
-EXTERN_TYPE cell_t *xlsWorksheetFindCell(worksheet *w, unsigned16_t row, unsigned16_t col);
-EXTERN_TYPE void xlsWorksheetMerge(worksheet *w, unsigned16_t first_row, unsigned16_t first_col, unsigned16_t last_row, unsigned16_t last_col);
-EXTERN_TYPE void xlsWorksheetColwidth(worksheet *w, unsigned16_t col, unsigned16_t width, xf_t* pxformat);
-EXTERN_TYPE void xlsWorksheetRowheight(worksheet *w, unsigned16_t row, unsigned16_t height, xf_t* pxformat);
-#ifdef RANGE_FEATURE
-EXTERN_TYPE range *xlsWorksheetRangegroup(worksheet *w, unsigned16_t row1, unsigned16_t col1, unsigned16_t row2, unsigned16_t col2);
-#endif
-EXTERN_TYPE cell_t *xlsWorksheetLabel(worksheet *w, unsigned16_t row, unsigned16_t col, const char *strlabel, xf_t *pxformat);
-EXTERN_TYPE cell_t *xlsWorksheetLabelW(worksheet *w, unsigned16_t row, unsigned16_t col, const uchar_t *strlabel, xf_t *pxformat);
-EXTERN_TYPE cell_t *xlsWorksheetBlank(worksheet *w, unsigned16_t row, unsigned16_t col, xf_t *pxformat);
-EXTERN_TYPE cell_t *xlsWorksheetNumberDbl(worksheet *w, unsigned16_t row, unsigned16_t col, double numval, xf_t *pxformat);
+EXTERN_TYPE cell_t *xlsWorksheetFindCell(worksheet *w, unsigned32_t row, unsigned32_t col);
+EXTERN_TYPE void xlsWorksheetMerge(worksheet *w, unsigned32_t first_row, unsigned32_t first_col, unsigned32_t last_row, unsigned32_t last_col);
+EXTERN_TYPE void xlsWorksheetColwidth(worksheet *w, unsigned32_t col, unsigned16_t width, xf_t* pxformat);
+EXTERN_TYPE void xlsWorksheetRowheight(worksheet *w, unsigned32_t row, unsigned16_t height, xf_t* pxformat);
+EXTERN_TYPE range *xlsWorksheetRangegroup(worksheet *w, unsigned32_t row1, unsigned32_t col1, unsigned32_t row2, unsigned32_t col2);
+EXTERN_TYPE cell_t *xlsWorksheetLabel(worksheet *w, unsigned32_t row, unsigned32_t col, const char *strlabel, xf_t *pxformat);
+EXTERN_TYPE cell_t *xlsWorksheetLabelW(worksheet *w, unsigned32_t row, unsigned32_t col, const unichar_t *strlabel, xf_t *pxformat);
+EXTERN_TYPE cell_t *xlsWorksheetBlank(worksheet *w, unsigned32_t row, unsigned32_t col, xf_t *pxformat);
+EXTERN_TYPE cell_t *xlsWorksheetNumberDbl(worksheet *w, unsigned32_t row, unsigned32_t col, double numval, xf_t *pxformat);
 // 536870911 >= numval >= -536870912
-EXTERN_TYPE cell_t *xlsWorksheetNumberInt(worksheet *w, unsigned16_t row, unsigned16_t col, signed32_t numval, xf_t *pxformat);
+EXTERN_TYPE cell_t *xlsWorksheetNumberInt(worksheet *w, unsigned32_t row, unsigned32_t col, signed32_t numval, xf_t *pxformat);
+EXTERN_TYPE cell_t *xlsWorksheetBoolean(worksheet *w, unsigned32_t row, unsigned32_t col, int boolval, xf_t *pxformat);
+EXTERN_TYPE cell_t *xlsWorksheetError(worksheet *w, unsigned32_t row, unsigned32_t col, errcode_t errval, xf_t *pxformat);
+EXTERN_TYPE cell_t *xlsWorksheetNote(worksheet *w, unsigned32_t row, unsigned32_t col, const char *remark, const char *author, xf_t *pxformat);
+EXTERN_TYPE cell_t *xlsWorksheetNoteW(worksheet *w, unsigned32_t row, unsigned32_t col, const unichar_t *remark, const unichar_t *author, xf_t *pxformat);
+#if 0
+/*
+The 'C' interface CANNOT support a 'formula' cell type as the formula expression is constructed
+from a C++ object hierarchy (abstract syntax tree).
+*/
+EXTERN_TYPE cell_t *xlsWorksheetFormula(worksheet *w, unsigned32_t row, unsigned32_t col, expression_node_t *formula, bool auto_destruct_expression_tree, xf_t *pxformat);
+#endif
+// define a cell (label, number, etc) - apply proper url (http://blah.blah), possible text mark too minus the '#' (mark can be NULL)
+EXTERN_TYPE void xlsWorksheetHyperLink(worksheet *w, cell_t *cell, const char *url, const char *mark);
+EXTERN_TYPE void xlsWorksheetHyperLinkW(worksheet *w, cell_t *cell, const unichar_t *url, const unichar_t *mark);
 
 // cell: xfi
 EXTERN_TYPE void xlsCellFont(cell_t *c, font_t *fontidx);
@@ -372,13 +412,14 @@ EXTERN_TYPE void xlsCellFontbold(cell_t *c, boldness_option_t fntboldness);
 EXTERN_TYPE void xlsCellFontunderline(cell_t *c, underline_option_t fntunderline);
 EXTERN_TYPE void xlsCellFontscript(cell_t *c, script_option_t fntscript);
 EXTERN_TYPE void xlsCellFontcolor(cell_t *c, color_name_t fntcolor);
-EXTERN_TYPE void xlsCellFontattr(cell_t *c, unsigned16_t attr);
+//EXTERN_TYPE void xlsCellFontattr(cell_t *c, unsigned16_t attr);
 EXTERN_TYPE void xlsCellFontitalic(cell_t *c, bool italic);
 EXTERN_TYPE void xlsCellFontstrikeout(cell_t *c, bool so);
 EXTERN_TYPE void xlsCellFontoutline(cell_t *c, bool ol);
 EXTERN_TYPE void xlsCellFontshadow(cell_t *c, bool sh);
-EXTERN_TYPE unsigned16_t xlsCellGetRow(cell_t *c);
-EXTERN_TYPE unsigned16_t xlsCellGetCol(cell_t *c);
+EXTERN_TYPE unsigned32_t xlsCellGetRow(cell_t *c);
+EXTERN_TYPE unsigned32_t xlsCellGetCol(cell_t *c);
+EXTERN_TYPE void xlsRangeCellcolor(range *r, color_name_t color);
 EXTERN_TYPE unsigned16_t xlsCellGetXFIndex(cell_t *c);
 EXTERN_TYPE void xlsCellSetXF(cell_t *c, xf_t *pxfval);
 // xformat
@@ -414,10 +455,10 @@ EXTERN_TYPE void xlsXformatSetBorderColor(xf_t *x, border_side_t side, color_nam
 EXTERN_TYPE void xlsXformatSetBorderColorIdx(xf_t *x, border_side_t side, unsigned8_t color);
 EXTERN_TYPE unsigned8_t xlsXformatGetBorderStyle(xf_t *x, border_side_t side);
 EXTERN_TYPE unsigned16_t xlsXformatGetBorderColorIdx(xf_t *x, border_side_t side);
-EXTERN_TYPE unsigned32_t xlsXformatGetSignature(xf_t *x);
+//EXTERN_TYPE unsigned32_t xlsXformatGetSignature(xf_t *x);
 // Font
 EXTERN_TYPE void xlsFontSetName(font_t *f, const char *name);
-EXTERN_TYPE char *xlsFontGetName(font_t *f, char *name);
+EXTERN_TYPE char *xlsFontGetName(font_t *f, char *namebuffer, size_t namebuffersize);
 EXTERN_TYPE void xlsFontSetHeight(font_t *f, unsigned16_t fntheight);
 EXTERN_TYPE unsigned16_t xlsFontGetHeight(font_t *f);
 EXTERN_TYPE void xlsFontSetBoldStyle(font_t *f, boldness_option_t fntboldness);
@@ -430,7 +471,9 @@ EXTERN_TYPE void xlsFontSetColor(font_t *f, color_name_t fntcolor);
 EXTERN_TYPE unsigned16_t xlsFontGetColorIdx(font_t *f);
 EXTERN_TYPE void xlsFontSetItalic(font_t *f, bool italic);
 EXTERN_TYPE void xlsFontSetStrikeout(font_t *f, bool so);
+#if defined(DEPRECATED)
 EXTERN_TYPE void xlsFontSetAttributes(font_t *f, unsigned16_t attr);
+#endif
 EXTERN_TYPE unsigned16_t xlsFontGetAttributes(font_t *f);
 EXTERN_TYPE void xlsFontSetOutline(font_t *f, bool ol);
 EXTERN_TYPE void xlsFontSetShadow(font_t *f, bool sh);

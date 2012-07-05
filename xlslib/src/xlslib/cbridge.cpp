@@ -3,25 +3,27 @@
  * This file is part of xlslib -- A multiplatform, C/C++ library
  * for dynamic generation of Excel(TM) files.
  *
- * xlslib is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2008-2011 David Hoerl All Rights Reserved.
  *
- * xlslib is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with xlslib.  If not, see <http://www.gnu.org/licenses/>.
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
  * 
- * Copyright 2008 David Hoerl
- *  
- * $Source: /cvsroot/xlslib/xlslib/src/xlslib/cbridge.cpp,v $
- * $Revision: 1.9 $
- * $Author: dhoerl $
- * $Date: 2009/03/02 04:08:43 $
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
+ * 
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY David Hoerl ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL David Hoerl OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
@@ -31,12 +33,19 @@
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+
 #include <sys/types.h>
 #include <string>
 
 #define CPP_BRIDGE_XLS
 
-#include <xlslib.h>
+// since xlslib.h does not include these for C files
+#include "common/xlsys.h"
+#include "common/systype.h"
+#include "xlslib/common.h" 
+#include "xlslib/record.h"
+
+#include "xlslib.h"
 
 using namespace std;
 using namespace xlslib_core;
@@ -50,7 +59,7 @@ extern "C" {
 																	std::string str = sheetname;
 																	return w->sheet(str);
 																}
-	worksheet *xlsWorkbookSheetW(workbook *w, const uchar_t *sheetname)
+	worksheet *xlsWorkbookSheetW(workbook *w, const unichar_t *sheetname)
 																{
 																	std::ustring str = sheetname;
 																	return w->sheet(str);
@@ -66,7 +75,7 @@ extern "C" {
 																	std::string str = name;
 																	return w->format(str);
 																}
-	format_t *xlsWorkbookFormatW(workbook *w, const uchar_t *name) {
+	format_t *xlsWorkbookFormatW(workbook *w, const unichar_t *name) {
 																	std::ustring str = name;
 																	return w->format(str);
 																}
@@ -77,7 +86,7 @@ extern "C" {
 #ifdef HAVE_ICONV
 	int xlsWorkbookIconvInType(workbook *w, const char *inType)	{ return w->iconvInType(inType); }
 #endif
-	uint8_t xlsWorkbookProperty(workbook *w, property_t prop, const char *s)
+	unsigned8_t xlsWorkbookProperty(workbook *w, property_t prop, const char *s)
 																{ 
 																	std::string str = s;
 																	return w->property(prop, str) ? 1 : 0;
@@ -96,43 +105,74 @@ extern "C" {
 																}
 	// Worksheet
 	void xlsWorksheetMakeActive(worksheet *w)					{ return w->MakeActive(); }
-	cell_t *xlsWorksheetFindCell(worksheet *w, unsigned16_t row, unsigned16_t col)
+	cell_t *xlsWorksheetFindCell(worksheet *w, unsigned32_t row, unsigned32_t col)
 																{ return w->FindCell(row, col); }
 	// Cell operations
-	void xlsWorksheetMerge(worksheet *w, unsigned16_t first_row, unsigned16_t first_col, unsigned16_t last_row, unsigned16_t last_col)		
+	void xlsWorksheetMerge(worksheet *w, unsigned32_t first_row, unsigned32_t first_col, unsigned32_t last_row, unsigned32_t last_col)		
 																{ return w->merge(first_row, first_col, last_row, last_col); }
-	void xlsWorksheetColwidth(worksheet *w, unsigned16_t col, unsigned16_t width, xf_t* pxformat)
+	void xlsWorksheetColwidth(worksheet *w, unsigned32_t col, unsigned16_t width, xf_t* pxformat)
 																{ return w->colwidth(col, width, pxformat); }
-	void xlsWorksheetRowheight(worksheet *w, unsigned16_t row, unsigned16_t height, xf_t* pxformat)
+	void xlsWorksheetRowheight(worksheet *w, unsigned32_t row, unsigned16_t height, xf_t* pxformat)
 																{ return w->rowheight(row, height, pxformat); } 
-																
-#ifdef RANGE_FEATURE
-																	// Ranges
-	range *xlsWorksheetRangegroup(worksheet *w, unsigned16_t row1, unsigned16_t col1, unsigned16_t row2, unsigned16_t col2)
+	// Ranges
+	range *xlsWorksheetRangegroup(worksheet *w, unsigned32_t row1, unsigned32_t col1, unsigned32_t row2, unsigned32_t col2)
 																{ return w->rangegroup(row1, col1, row2, col2); }
-#endif // RANGE_FEATURE
 
 	// Cells
-	cell_t *xlsWorksheetLabel(worksheet *w, unsigned16_t row, unsigned16_t col, const char *strlabel, xf_t *pxformat)
+	cell_t *xlsWorksheetLabel(worksheet *w, unsigned32_t row, unsigned32_t col, const char *strlabel, xf_t *pxformat)
 																{ 
 																	std::string str = strlabel;
 																	return w->label(row, col, strlabel, pxformat);
 																}
-	cell_t *xlsWorksheetLabelW(worksheet *w, unsigned16_t row, unsigned16_t col, const uchar_t *strlabel, xf_t *pxformat)
+	cell_t *xlsWorksheetLabelW(worksheet *w, unsigned32_t row, unsigned32_t col, const unichar_t *strlabel, xf_t *pxformat)
 																{ 
 																	std::ustring str = strlabel;
 																	return w->label(row, col, strlabel, pxformat);
 																}
-	cell_t *xlsWorksheetBlank(worksheet *w, unsigned16_t row, unsigned16_t col, xf_t *pxformat)
+	cell_t *xlsWorksheetBlank(worksheet *w, unsigned32_t row, unsigned32_t col, xf_t *pxformat)
 																{ return w->blank(row, col, pxformat); }
 
-	cell_t *xlsWorksheetNumberDbl(worksheet *w, unsigned16_t row, unsigned16_t col, double numval, xf_t *pxformat)
+	cell_t *xlsWorksheetNumberDbl(worksheet *w, unsigned32_t row, unsigned32_t col, double numval, xf_t *pxformat)
 																{ return w->number(row, col, numval, pxformat); }
 	// 536870911 >= numval >= -536870912
-	cell_t *xlsWorksheetNumberInt(worksheet *w, unsigned16_t row, unsigned16_t col, signed32_t numval, xf_t *pxformat)
+	cell_t *xlsWorksheetNumberInt(worksheet *w, unsigned32_t row, unsigned32_t col, signed32_t numval, xf_t *pxformat)
 																{ return w->number(row, col, numval, pxformat); }
 
-																
+	cell_t *xlsWorksheetBoolean(worksheet *w, unsigned32_t row, unsigned32_t col, int boolval, xf_t *pxformat)
+																{ return w->boolean(row, col, !!boolval, pxformat); }
+
+	cell_t *xlsWorksheetError(worksheet *w, unsigned32_t row, unsigned32_t col, errcode_t errval, xf_t *pxformat)
+																{ return w->error(row, col, errval, pxformat); }
+
+	cell_t *xlsWorksheetNote(worksheet *w, unsigned32_t row, unsigned32_t col, const char *remark, const char *author, xf_t *pxformat)
+																{ 
+																	std::string cmt = remark;
+																	std::string auth = author;
+
+																	return w->note(row, col, cmt, auth, pxformat); 
+																}
+	cell_t *xlsWorksheetNoteW(worksheet *w, unsigned32_t row, unsigned32_t col, const unichar_t *remark, const unichar_t *author, xf_t *pxformat)
+																{ 
+																	std::ustring cmt = remark;
+																	std::ustring auth = author;
+
+																	return w->note(row, col, cmt, auth, pxformat); 
+																}
+	void xlsWorksheetHyperLink(worksheet *w, cell_t *cell, const char *url, const char *mark)
+																{ 
+																	std::string sUrl = url;
+																	std::string sMark = mark ? mark : "";
+
+																	w->hyperLink(cell, sUrl, sMark); 
+																}
+	void xlsWorksheetHyperLinkW(worksheet *w, cell_t *cell, const unichar_t *url, const unichar_t *mark)
+																{ 
+																	std::ustring sUrl = url;
+																	std::ustring sMark = mark ? mark : L"";
+
+																	w->hyperLink(cell, sUrl, sMark); 
+																}
+	
 	// Cells
 	// xf_i interface
 	void xlsCellFont(cell_t *c, font_t *fontidx)				{ return c->font(fontidx); }
@@ -157,7 +197,7 @@ extern "C" {
 	//font_i interface
 	void xlsCellFontname(cell_t *c, const char *fntname)		{
 																	std::string str = fntname;
-																	return c->fontname(str);
+																	c->fontname(str);
 																}
 	void xlsCellFontheight(cell_t *c, unsigned16_t fntheight)	{ return c->fontheight(fntheight); }
 	void xlsCellFontbold(cell_t *c, boldness_option_t fntboldness)
@@ -171,13 +211,10 @@ extern "C" {
 	void xlsCellFontoutline(cell_t *c, bool ol)					{ return c->fontoutline(ol); }
 	void xlsCellFontshadow(cell_t *c, bool sh)					{ return c->fontshadow(sh); }
 
-	unsigned16_t xlsCellGetRow(cell_t *c)						{ return c->GetRow(); }
-	unsigned16_t xlsCellGetCol(cell_t *c)						{ return c->GetCol(); }
-#ifdef RANGE_FEATURE	
+	unsigned32_t xlsCellGetRow(cell_t *c)						{ return c->GetRow(); }
+	unsigned32_t xlsCellGetCol(cell_t *c)						{ return c->GetCol(); }
 	// range
-	void xlsRangeCellcolor(range *r, color_name_t color)		{ return r->cellcolor(color); }
-#endif // RANGE_FEATURE
-	
+	void xlsRangeCellcolor(range *r, color_name_t color)		{ return r->cellcolor(color); }	
 	// xformat
 	void xlsXformatSetFont(xf_t *x, font_t* fontidx)			{ return x->SetFont(fontidx); }
 	unsigned16_t xlsXformatGetFontIndex(xf_t *x)				{ return x->GetFontIndex(); }
@@ -229,13 +266,15 @@ extern "C" {
 	void xlsFontSetName(font_t *f, const char *fntname)			{
 																	std::string str = fntname;
 																	f->SetName(str);
-																	return;
 																}
-	char *xlsFontGetName(font_t *f, char *fntname)				{
-																	const char *ptr = (f->GetName())->c_str();
+	char *xlsFontGetName(font_t *f, char *dst, size_t dstsize)	{
+																	const char *ptr = f->GetName().c_str();
 																	size_t len = strlen(ptr) + 1;
-																	memcpy(fntname, ptr, len);
-																	return fntname;
+																	if (len > dstsize)
+																		len = dstsize;
+																	memcpy(dst, ptr, len);
+																	dst[dstsize - 1] = 0;
+																	return dst;
 																}										
 	/* FONT height wrappers*/
 	void xlsFontSetHeight(font_t *f, unsigned16_t fntheight)	{ return f->SetHeight(fntheight); }
@@ -261,4 +300,18 @@ extern "C" {
 	// Macintosh only
 	void xlsFontSetOutline(font_t *f, bool ol)					{ return f->SetOutline(ol); }
 	void xlsFontSetShadow(font_t *f, bool sh)					{ return f->SetShadow(sh); }
+
+// these are accessing private members. Is this intended?
+	unsigned16_t xlsFontGetAttributes(font_t *f)				{ return f->GetAttributes(); }
+#if defined(DEPRECATED)
+	void xlsFontSetAttributes(font_t *f, unsigned16_t attr)		{ f->SetAttributes(attr); }
+#endif
+	//unsigned32_t xlsXformatGetSignature(xf_t *x)				{ return x->GetSignature(); }
+	bool xlsXformatIsCell(xf_t *x)								{ return x->IsCell(); }
+	void xlsXformatSetCellMode(xf_t *x, bool cellmode)			{ x->SetCellMode(cellmode); }
+	unsigned16_t xlsXformatGetFormatIndex(xf_t *x)				{ return x->GetFormatIndex(); }
+	format_number_t xlsXformatGetFormat(xf_t *x)				{ return x->GetFormat(); }
+	void xlsCellSetXF(cell_t *c, xf_t *pxfval)					{ c->SetXF(pxfval); }
+	unsigned16_t xlsCellGetXFIndex(cell_t *c)					{ return c->GetXFIndex(); }
+	//void xlsCellFontattr(cell_t *c, unsigned16_t attr)		{ c->Fontattr(attr); }
 }

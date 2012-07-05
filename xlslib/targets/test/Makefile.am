@@ -1,16 +1,27 @@
 
-INCLUDES		=    \
--I$(top_builddir)/src/common \
--I$(top_builddir)/src/xlslib \
--I$(top_builddir)/src/oledoc 
+AM_CPPFLAGS		=  \
+-I$(top_srcdir)/src
 
 
-noinst_PROGRAMS	= testCPP testC
-testCPP_SOURCES	= mainCPP.cpp
-testCPP_LDADD	= $(top_builddir)/src/libxls.la 
-testC_SOURCES	= mainC.c
-testC_LDADD		= $(top_builddir)/src/libxls.la 
+noinst_PROGRAMS	  = testCPP testC PR2859188 PR3076678
+testCPP_SOURCES	  = mainCPP.cpp md5.c
+testCPP_LDADD	  = $(top_builddir)/src/libxls.la 
+testCPP_LDFLAGS   = -static -lstdc++
+testC_SOURCES	  = mainC.c md5.c
+testC_LDADD       = $(top_builddir)/src/libxls.la 
+testC_LDFLAGS     = -static -lstdc++
+PR2859188_SOURCES = PR2859188.cpp md5.c
+PR2859188_LDADD   = $(top_builddir)/src/libxls.la 
+PR2859188_LDFLAGS = -static -lstdc++
+PR3076678_SOURCES = PR3076678.cpp md5.c
+PR3076678_LDADD   = $(top_builddir)/src/libxls.la 
+PR3076678_LDFLAGS = -static -lstdc++
+
+check_PROGRAMS = testCPP testC PR2859188 PR3076678
+
+TESTS = testCPP testC PR2859188 PR3076678
 
 clean-local:
-	-rm -rf .deps
+	-rm -rf *.xls
+
 

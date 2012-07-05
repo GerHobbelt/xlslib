@@ -3,163 +3,131 @@
  * This file is part of xlslib -- A multiplatform, C/C++ library
  * for dynamic generation of Excel(TM) files.
  *
- * xlslib is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2004 Yeico S. A. de C. V. All Rights Reserved.
+ * Copyright 2008-2011 David Hoerl All Rights Reserved.
  *
- * xlslib is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with xlslib.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * Copyright 2004 Yeico S. A. de C. V.
- * Copyright 2008 David Hoerl
- *  
- * $Source: /cvsroot/xlslib/xlslib/src/xlslib/label.cpp,v $
- * $Revision: 1.7 $
- * $Author: dhoerl $
- * $Date: 2009/03/02 04:08:43 $
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
  *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
  *
- * File description:
- *
- *
+ * THIS SOFTWARE IS PROVIDED BY David Hoerl ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL David Hoerl OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#include <label.h>
+#include "xlslib/record.h"
+#include "xlslib/label.h"
+#include "xlslib/globalrec.h"
+#include "xlslib/datast.h"
+#include "xlslib/rectypes.h"
+
 
 using namespace std;
 using namespace xlslib_core;
 
 /*
-******************************
-label_t class implementation
-******************************
-*/
-xlslib_core::label_t::label_t(CGlobalRecords& gRecords, 
-		unsigned16_t rowval, unsigned16_t colval, const u16string& labelstrval, xf_t* pxfval) :
-	cell_t(gRecords, rowval, colval),
-	strLabel(),
-	isASCII(false)
+ ******************************
+ * label_t class implementation
+ ******************************
+ */
+
+xlslib_core::label_t::label_t(CGlobalRecords& gRecords,
+							  unsigned32_t rowval, unsigned32_t colval, const u16string& labelstrval, xf_t* pxfval) :
+	cell_t(gRecords, rowval, colval, pxfval),
+	strLabel(labelstrval),
+	inSST(false)
 {
-	u16string::const_iterator cBegin, cEnd;
-	size_t	len;
-	
-	SetXF(pxfval);
+	setType();
+}
 
-	len = labelstrval.length();
-	strLabel.reserve(len);
+xlslib_core::label_t::label_t(CGlobalRecords& gRecords,
+							  unsigned32_t rowval, unsigned32_t colval, const std::string& labelstrval, xf_t* pxfval) :
+	cell_t(gRecords, rowval, colval, pxfval),
+	strLabel(),
+	inSST(false)
+{
+	gRecords.char2str16(labelstrval, strLabel);
+	setType();
+}
 
-	cBegin = labelstrval.begin();
-	cEnd = labelstrval.end();
-	
-	while(cBegin != cEnd) {
-		unsigned16_t	c;
-		
-		c = *cBegin++;
-		if(c > 0x7F) isASCII = false;
+#ifndef __FRAMEWORK__
+xlslib_core::label_t::label_t(CGlobalRecords& gRecords,
+							  unsigned32_t rowval, unsigned32_t colval, const std::ustring& labelstrval, xf_t* pxfval) :
+	cell_t(gRecords, rowval, colval, pxfval),
+	strLabel(),
+	inSST(false)
+{
+	gRecords.wide2str16(labelstrval, strLabel);
+	setType();
+}
 
-		strLabel.push_back(c);		
+#endif
+
+void xlslib_core::label_t::setType()
+{
+	if(strLabel.length() > 255) {
+		inSST = true;
+		m_GlobalRecords.AddLabelSST(*this);
 	}
 }
 
-/*
-******************************
-******************************
-*/
-unsigned16_t xlslib_core::label_t::GetSize() const
+xlslib_core::label_t::~label_t()
 {
-	unsigned16_t size = 0;
+	// suppose someone creates a SST string, then overwrites it or overwrites cell with something else.
+	// Unlikely, but this protects against that case.
+	if(inSST) {
+		m_GlobalRecords.DeleteLabelSST(*this);
+	}
+}
 
-	size = 10;		// empty Unicode string has a flags byte
-	size += static_cast<unsigned16_t>
-      (sizeof(unsigned16_t) + 1 + strLabel.size() * (isASCII ? sizeof(unsigned8_t) : sizeof(unsigned16_t)));
-	  
+size_t xlslib_core::label_t::GetSize(void) const
+{
+	size_t size;
+
+	if(inSST) {
+		size = 4 + 8;   // =2 + 2 + 2 + 2 + 4
+	} else {
+		size = 4 + 6;   // 4:type/size 2:row 2:col 2:xtnded
+		// 2:size 1:flag len:(ascii or not)
+		size += (sizeof(unsigned16_t) + 1 + strLabel.length() * (CGlobalRecords::IsASCII(strLabel) ? sizeof(unsigned8_t) : sizeof(unsigned16_t)));
+	}
 	return size;
 }
-/*
-******************************
-******************************
-*/
-CUnit* xlslib_core::label_t::GetData() const
+
+CUnit* xlslib_core::label_t::GetData(CDataStorage &datastore) const
 {
-	return (CUnit*)( new CLabel(row, col, strLabel, isASCII, pxf));	// NOTE: this pointer HAS to be deleted elsewhere.
+	return datastore.MakeCLabel(*this); // NOTE: this pointer HAS to be deleted elsewhere.
 }
 
-/*
-******************************
-CLabel class implementation
-******************************
-*/
-CLabel::CLabel(unsigned16_t row,	  
-	       unsigned16_t col,	  
-	       const u16string& strlabel,
-		   bool isASCII,
-		   const xf_t* pxfval)
+CLabel::CLabel(CDataStorage &datastore, const label_t& labeldef) :
+	CRecord(datastore)
 {
-	unsigned16_t xfindex;
-
-	SetRecordType(RECTYPE_LABEL);
-	AddValue16(row);
-	AddValue16(col);
-
-	if(pxfval != NULL)
-		xfindex = pxfval->GetIndex();
-	else
-		xfindex = XF_PROP_XF_DEFAULT_CELL;
-
-	AddValue16(xfindex);	  
-
-	AddUnicodeString(&strlabel, sizeof(unsigned16_t), isASCII);
-
-	SetRecordLength(GetDataSize()-4);
-}
-
-CLabel::CLabel(label_t& labeldef)
-
-{
-	SetRecordType(RECTYPE_LABEL);
-	AddValue16(labeldef.GetRow());
-	AddValue16(labeldef.GetCol());
+	SetRecordType(labeldef.GetInSST() ? RECTYPE_LABELSST : RECTYPE_LABEL);
+	AddValue16((unsigned16_t)labeldef.GetRow());
+	AddValue16((unsigned16_t)labeldef.GetCol());
 	AddValue16(labeldef.GetXFIndex());
-
-	AddUnicodeString(labeldef.GetStrLabel(), sizeof(unsigned16_t), labeldef.GetIsASCII());
-
-	SetRecordLength(GetDataSize()-4);
+	if(labeldef.GetInSST()) {
+		size_t index = labeldef.GetGlobalRecords().GetLabelSSTIndex(labeldef);
+		AddValue32(index);
+	} else {
+		AddUnicodeString(labeldef.GetStrLabel(), LEN2_FLAGS_UNICODE);
+	}
+	SetRecordLength(GetDataSize()-RECORD_HEADER_SIZE);
 }
 
 CLabel::~CLabel()
 {
 }
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * $Log: label.cpp,v $
- * Revision 1.7  2009/03/02 04:08:43  dhoerl
- * Code is now compliant to gcc  -Weffc++
- *
- * Revision 1.6  2009/01/10 21:10:50  dhoerl
- * More tweaks
- *
- * Revision 1.5  2009/01/08 02:52:47  dhoerl
- * December Rework
- *
- * Revision 1.4  2008/12/20 15:49:05  dhoerl
- * 1.2.5 fixes
- *
- * Revision 1.3  2008/12/06 01:42:57  dhoerl
- * John Peterson changes along with lots of tweaks. Many bugs that causes Excel crashes fixed.
- *
- * Revision 1.2  2008/10/25 18:39:54  dhoerl
- * 2008
- *
- * Revision 1.1.1.1  2004/08/27 16:31:53  darioglz
- * Initial Import.
- *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
