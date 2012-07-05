@@ -23,7 +23,7 @@ Makefile.in
 
 # Microsofty dungheap
 *.aps
-
+*.ncb
 *.exe
 *.dll
 *.layout
