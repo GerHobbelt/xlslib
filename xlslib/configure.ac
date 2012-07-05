@@ -343,12 +343,13 @@ AX_ADD_OPTION([LDFLAGS], [$ac_profiling_cc_flags])
 ###########################################################
 
 AC_CONFIG_FILES([Makefile
-		 src/Makefile
-		 targets/Makefile
-		 targets/test/Makefile
-	         build/msvc2005/ac-config.win32.h
-        	 build/msvc2008/ac-config.win32.h
-	         ])
+				 src/Makefile
+				 targets/Makefile
+				 targets/test/Makefile
+				 build/msvc2005/ac-config.win32.h
+				 build/msvc2008/ac-config.win32.h
+				 build/msvc2010/ac-config.win32.h
+				])
 AC_OUTPUT
 
 
