@@ -161,8 +161,8 @@
     </Link>
     <PostBuildEvent>
       <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
-      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -207,8 +207,8 @@ $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(Ou
     </Link>
     <PostBuildEvent>
       <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
-      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -253,8 +253,8 @@ $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(Ou
     </Link>
     <PostBuildEvent>
       <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
-      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -298,8 +298,8 @@ $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(Ou
     </Link>
     <PostBuildEvent>
       <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
-      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -346,8 +346,8 @@ $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(Ou
     </Link>
     <PostBuildEvent>
       <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
-      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -394,8 +394,8 @@ $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(Ou
     </Link>
     <PostBuildEvent>
       <Message>process $(TargetPath) for proper DLL exports of all C++ elements</Message>
-      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
-$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib
+      <Command>echo $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
+$(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(Platform)_MSVC2010.$(Configuration)\
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
