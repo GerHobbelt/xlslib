@@ -56,7 +56,7 @@
 
 #endif
 
-#endif
+#endif // WANT_MICROSOFT_MEMDBG
 
 #else
 

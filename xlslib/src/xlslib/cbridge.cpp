@@ -34,13 +34,16 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-#include <sys/types.h>
-#include <string>
-
 #define CPP_BRIDGE_XLS
 
 // since xlslib.h does not include these for C files
 #include "common/xlsys.h"
+
+#ifdef HAVE_SYS_TYPES_H
+#include <sys/types.h>
+#endif
+#include <string>
+
 #include "common/systype.h"
 #include "xlslib/common.h" 
 #include "xlslib/record.h"

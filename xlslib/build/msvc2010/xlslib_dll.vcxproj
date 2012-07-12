@@ -471,17 +471,17 @@ $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(Ou
     <ClInclude Include="..\..\src\xlslib\tostr.h" />
     <ClInclude Include="..\..\src\xlslib\unit.h" />
     <ClInclude Include="..\..\src\xlslib\workbook.h" />
+    <ClInclude Include="..\BDS\ac-config.win32.h" />
+    <ClInclude Include="..\CodeBlocks\ac-config.linux32.h" />
     <ClInclude Include="ac-config.win32.h" />
     <ClInclude Include="..\..\src\common\overnew.h" />
     <ClInclude Include="..\..\src\common\stringtok.h" />
     <ClInclude Include="..\..\src\common\systype.h" />
     <ClInclude Include="..\..\src\common\timespan.h" />
-    <ClInclude Include="..\..\src\common\xlconfig.h" />
     <ClInclude Include="..\..\src\common\xls_poppack.h" />
     <ClInclude Include="..\..\src\common\xls_pshpack1.h" />
     <ClInclude Include="..\..\src\common\xls_pshpack2.h" />
     <ClInclude Include="..\..\src\common\xls_pshpack4.h" />
-    <ClInclude Include="..\..\src\common\xlslib.h" />
     <ClInclude Include="..\..\src\common\xlstypes.h" />
     <ClInclude Include="..\..\src\common\xlsys.h" />
     <ClInclude Include="..\..\src\oledoc\binfile.h" />
@@ -490,6 +490,8 @@ $(SolutionDir)bin/Win32_MSVC2010.$(Configuration)\createDLL -M$(Platform) -n$(Ou
     <ClInclude Include="..\..\src\oledoc\oleprop.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\src\common\xlconfig.h.in" />
+    <None Include="..\BDS\2006\xlslib_static.bdsproj" />
     <None Include="ac-config.win32.h.in" />
     <None Include="..\..\xlslibRefGuide.pdf" />
     <None Include="..\..\xlslibRefManual.xls" />

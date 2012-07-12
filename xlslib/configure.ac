@@ -42,9 +42,9 @@ AC_PROG_INSTALL
 # Checks for header files.
 
 # Taken from libxml - DFH
-AC_CHECK_HEADERS([wchar.h stdint.h stdbool.h])
+AC_CHECK_HEADERS([wchar.h stdint.h stdbool.h malloc.h memory.h string.h strings.h unistd.h])
 # added to make syncing config for Win32/64 easier
-AC_CHECK_HEADERS([ctype.h crtdbg.h crt_externs.h windows.h])
+AC_CHECK_HEADERS([ctype.h sys/types.h crtdbg.h crt_externs.h windows.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL

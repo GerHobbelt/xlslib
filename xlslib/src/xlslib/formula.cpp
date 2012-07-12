@@ -34,14 +34,6 @@
 #include "xlslib/cell.h"
 #include "xlslib/rectypes.h"
 
-#ifdef __BCPLUSPLUS__
-#include <malloc.h>
-// malloc.h needed for calloc. RLN 111208
-#include <memory.h>
-// memory.h needed for memset. RLN 111215
-// These may be needed for other compilers as well.
-#endif
-
 using namespace xlslib_core;
 using namespace xlslib_strings;
 

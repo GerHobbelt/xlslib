@@ -55,6 +55,12 @@
     <Filter Include="Utility Files">
       <UniqueIdentifier>{edd27a72-0aab-4893-826f-ba19370da275}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extra Files\BorlandC">
+      <UniqueIdentifier>{fb2ac3d7-c28d-4904-9dfc-515688021ebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extra Files\CodeBlocks">
+      <UniqueIdentifier>{a5a9e412-9c3a-4982-9f45-d6d14f4ad3c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\xlslib\assert_assist.cpp">
@@ -281,9 +287,6 @@
     <ClInclude Include="..\..\src\common\timespan.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\common\xlconfig.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\common\xls_poppack.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
@@ -294,9 +297,6 @@
       <Filter>Header Files\common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\common\xls_pshpack4.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\common\xlslib.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\common\xlstypes.h">
@@ -316,6 +316,12 @@
     </ClInclude>
     <ClInclude Include="..\..\src\oledoc\oleprop.h">
       <Filter>Header Files\OLEdoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\BDS\ac-config.win32.h">
+      <Filter>Extra Files\BorlandC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CodeBlocks\ac-config.linux32.h">
+      <Filter>Extra Files\CodeBlocks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -366,6 +372,12 @@
     </None>
     <None Include="..\..\acinclude.m4">
       <Filter>Extra Files\m4</Filter>
+    </None>
+    <None Include="..\BDS\2006\xlslib_static.bdsproj">
+      <Filter>Extra Files\BorlandC</Filter>
+    </None>
+    <None Include="..\..\src\common\xlconfig.h.in">
+      <Filter>Header Files\common</Filter>
     </None>
   </ItemGroup>
 </Project>
