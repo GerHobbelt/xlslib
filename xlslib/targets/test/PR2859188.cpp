@@ -160,7 +160,8 @@ int main(int argc, char *argv[])
 			}
 			//printf("MD5 = %s\n", checkP);
 		}
-		fclose(fp);
+		if (fp)
+			fclose(fp);
 	}
 	
 	try

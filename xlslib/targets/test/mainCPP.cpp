@@ -142,6 +142,10 @@ int main(int argc, char *argv[])
 	
 	{
 		FILE *fp = fopen(fileName, "r");
+		if (!fp) {
+			std::cerr << "WARNING: Cannot open MD5 checksums file " << fileName << std::endl;
+			std::cerr << "    # Checksums not loaded" << std::endl;
+		} 
 		for(int i=0; i<NUM_TESTS; ++i) {
 			char *checkP = check[i];
 			if(fp) {
@@ -151,7 +155,9 @@ int main(int argc, char *argv[])
 			}
 			// printf("MD5 = %s\n", checkP);
 		}
-		fclose(fp);
+		if (fp) {
+			fclose(fp);
+		}
 	}
 	
 	try
@@ -314,13 +320,13 @@ char *StandardTest(const char *md5_checksum)
 
 	// Title
    sh->label(1,1,"test1");
-   sh->rowheight(1,100);
-   sh->rowheight(2,150);
+   sh->rowheight(1,100*TWIP);
+   sh->rowheight(2,150*TWIP);
 
 	// Title
    sh2->label(1,1,"test3");
-   sh2->rowheight(1,100);
-   sh2->rowheight(2,150);
+   sh2->rowheight(1,100*TWIP);
+   sh2->rowheight(2,150*TWIP);
    sh2->label(2,1,"test4");
    sh2->number(3,1,1.0);
    sh2->number(4,1,2.0);
@@ -425,21 +431,21 @@ char *StandardTest2(const char *md5_checksum)
 
 	// Title
 	sh1->label(1,1,"test1");
-	sh1->rowheight(1,100);
-	sh1->rowheight(2,150);
+	sh1->rowheight(1,100*TWIP);
+	sh1->rowheight(2,150*TWIP);
 
 	// Title
 	sh2->label(1,1,"test2");
-	sh2->rowheight(1,100);
-	sh2->rowheight(2,150);
+	sh2->rowheight(1,100*TWIP);
+	sh2->rowheight(2,150*TWIP);
 	
 	sh3->label(1,1,"test3");
-	sh3->rowheight(1,100);
-	sh3->rowheight(2,150);
+	sh3->rowheight(1,100*TWIP);
+	sh3->rowheight(2,150*TWIP);
 
 	sh4->label(2,1,"test4");
-	sh4->rowheight(1,100);
-	sh4->rowheight(2,150);
+	sh4->rowheight(1,100*TWIP);
+	sh4->rowheight(2,150*TWIP);
 
 	// WARNING: column and row numbers are zero based in xlslib, but Excel starts numbering the buggers at '1' instead!
 
@@ -566,8 +572,8 @@ char *RandomCellAndFormatTest(unsigned32_t sheets_sz, unsigned32_t rows_sz, unsi
 
       for(unsigned32_t row=0; row<rows_sz; row++)
       {
-	     // height unit = point! Internally Excel works with 'twip': 1/20th of a point, but the interface works in /points/.
-         sh->rowheight(row, (unsigned16_t)(GetRndNumber(13)+20));
+	     // height unit = Internally Excel works with 'twip': 1/20th of a point; we can use the TWIP #define to convert points to Excal-savvy 'twips'.
+         sh->rowheight(row, (unsigned16_t)(GetRndNumber(13)+20)*TWIP);
          for(unsigned32_t col=0; col<cols_sz; col++)
          {
 		    // width unit = 1/256th of the width of '0'
@@ -619,67 +625,67 @@ char *RandomCellAndFormatTestProf(unsigned32_t sheets_sz, unsigned32_t rows_sz, 
 
    for(unsigned32_t shnum = 0; shnum < sheets_sz; shnum++)
    {
-      char tmp[256];
+	   char tmp[256];
 
-	  sprintf(tmp, "DUH_%d", shnum);
-	  string snamesheet(tmp);
+	   sprintf(tmp, "DUH_%d", shnum);
+	   string snamesheet(tmp);
 
-      sh = wb.sheet(snamesheet);
+	   sh = wb.sheet(snamesheet);
 
-      for(unsigned32_t row = 0; row<rows_sz; row++)
-      {
-	     // height unit = point! Internally Excel works with 'twip': 1/20th of a point, but the interface works in /points/.
-		  sh->rowheight(row,(unsigned16_t)(GetRndNumber(13)+20));
-		  for(unsigned32_t col = 0; col<cols_sz; col++)
-		  {
-			  // width unit = 1/256th of the width of '0'
-            sh->colwidth(row, (unsigned16_t)(GetRndNumber(2000)+4000));
+	   for(unsigned32_t row = 0; row<rows_sz; row++)
+	   {
+		   // height unit = twips! Internally Excel works with 'twip': 1/20th of a point.
+		   sh->rowheight(row,(unsigned16_t)(GetRndNumber(13)+20)*TWIP);
+		   for(unsigned32_t col = 0; col<cols_sz; col++)
+		   {
+			   // width unit = 1/256th of the width of '0'
+			   sh->colwidth(row, (unsigned16_t)(GetRndNumber(2000)+4000));
 
-            unsigned32_t rndcol = GetRndNumber(rows_sz);
-            unsigned32_t rndrow = GetRndNumber(cols_sz);
+			   unsigned32_t rndcol = GetRndNumber(rows_sz);
+			   unsigned32_t rndrow = GetRndNumber(cols_sz);
 
-			sprintf(tmp, "S%d:%d-%d#%d-%d", shnum, row+1, col+1, rndrow, rndcol);
-			string snamelabel(tmp);
+			   sprintf(tmp, "S%d:%d-%d#%d-%d", shnum, row+1, col+1, rndrow, rndcol);
+			   string snamelabel(tmp);
 
-            cell_t* cell = sh->label(rndrow, rndcol, snamelabel);
+			   cell_t* cell = sh->label(rndrow, rndcol, snamelabel);
 
-			if (PRINT_CELL_FORMAT)
-			{
-			cout<<"CELL ";
-            cout.fill('0');
-            cout.width(2);
-            cout<<rndrow<<",";
-            cout.fill('0');
-            cout.width(2);
-            cout<<rndcol<<": ";
-			}
+			   if (PRINT_CELL_FORMAT)
+			   {
+				   cout<<"CELL ";
+				   cout.fill('0');
+				   cout.width(2);
+				   cout<<rndrow<<",";
+				   cout.fill('0');
+				   cout.width(2);
+				   cout<<rndcol<<": ";
+			   }
 
-			unsigned32_t k, fmtries = GetRndNumber(OPT_MAX);
+			   unsigned32_t k, fmtries = GetRndNumber(OPT_MAX);
 
-			if (PRINT_CELL_FORMAT)
-			{
-            cout<<endl<<"**FORMAT** ";
-			}
+			   if (PRINT_CELL_FORMAT)
+			   {
+				   cout<<endl<<"**FORMAT** ";
+			   }
 
-			for(k = 0; k<fmtries; k++)
-				RandomFormat(cell, PRINT_CELL_FORMAT);
+			   for(k = 0; k<fmtries; k++)
+				   RandomFormat(cell, PRINT_CELL_FORMAT);
 
-			if (PRINT_CELL_FORMAT)
-			{
-            cout<<endl<<"**FONT**   ";
-			}
+			   if (PRINT_CELL_FORMAT)
+			   {
+				   cout<<endl<<"**FONT**   ";
+			   }
 
-			fmtries = GetRndNumber(OPT_FONTMAX);
-            for(k = 0; k<fmtries; k++)
-				RandomFontOption(cell, PRINT_CELL_FORMAT);
+			   fmtries = GetRndNumber(OPT_FONTMAX);
+			   for(k = 0; k<fmtries; k++)
+				   RandomFontOption(cell, PRINT_CELL_FORMAT);
 
-            RandomFontName(cell,PRINT_CELL_FORMAT);
-			if (PRINT_CELL_FORMAT)
-			{
-            cout<<endl;
-			}
-		 }
-      }
+			   RandomFontName(cell,PRINT_CELL_FORMAT);
+			   if (PRINT_CELL_FORMAT)
+			   {
+				   cout<<endl;
+			   }
+		   }
+	   }
    }
 
    int err = wb.Dump("rndcellandformat_prof.xls");
@@ -718,8 +724,8 @@ char *RandomFormatTest(unsigned32_t sheets_sz, unsigned32_t rows_sz, unsigned32_
 
       for(unsigned32_t row = 0; row<rows_sz; row++)
       {
-	     // height unit = point! Internally Excel works with 'twip': 1/20th of a point, but the interface works in /points/.
-		  sh->rowheight(row, (unsigned16_t)(GetRndNumber(13)+20));
+	     // height unit = twips! Internally Excel works with 'twip': 1/20th of a point.
+		  sh->rowheight(row, (unsigned16_t)(GetRndNumber(13)+20)*TWIP);
 		  for(unsigned32_t col=0; col<cols_sz; col++)
 		  {
 			  // width unit = 1/256th of the width of '0'
@@ -1176,7 +1182,7 @@ char *StressTest(unsigned32_t sheets_sz, unsigned32_t rows_sz, unsigned32_t cols
 
       ssh = swb.sheet(snamesheet);
       ssh->colwidth(1,10);
-      ssh->rowheight(4,20);
+      ssh->rowheight(4,20*TWIP);
       ssh->merge(0,1,1,4);
 
       free(snum);

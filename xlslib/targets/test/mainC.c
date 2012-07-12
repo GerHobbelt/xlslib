@@ -34,28 +34,25 @@
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#if defined(_MSC_VER) && defined(WIN32)
-#include "ac-config.win32.h"
-#elif defined(__BCPLUSPLUS__)
-#  include "ac-config.win32.h"
-// I am assuming this header file is created and include automatically by MSVC.
-// Other compilers (I.e. BC++ ) don't have this, so I simply copied the file
-// from the MSC project to the RadStudio project and included it. RLN 111208
-#else
-#include "common/xlconfig.h"
-#endif
+#include "common/xlsys.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#ifdef _X_DEBUG_
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 
-// [i_a] 
 #ifdef HAVE_STDINT_H
 #include <stdint.h>
 #endif
+#ifdef HAVE_WCHAR_H
+#include <wchar.h>
+#endif
+#ifdef HAVE_SYS_TYPES_H
+#include <sys/types.h>
+#endif
+
 #ifdef HAVE_STDBOOL_H
 #include <stdbool.h>
 #else
@@ -64,12 +61,6 @@ typedef enum
 	false = 0,
 	true = 1
 } bool;
-#endif
-#ifdef HAVE_WCHAR_H
-#include <wchar.h>
-#endif
-#ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>
 #endif
 
 #include "xlslib.h"

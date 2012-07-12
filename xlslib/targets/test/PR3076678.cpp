@@ -46,8 +46,8 @@ char *BorderTest(const char *md5_checksum)
 	pCell = sh->label(1, 1, "Test #2", pxf);
 
 	// PR3082021: rowheight doesn't work [for empty rows, and then the next ones that /are/ filled also miss out on the rowheight]
-	sh->rowheight(0, 30);
-	sh->rowheight(1, 76);		// in points (Excel uses twips, 1/20th of a point, but we dont)
+	sh->rowheight(0, 30*TWIP);
+	sh->rowheight(1, 76*TWIP);		// in twips (Excel uses twips, 1/20th of a point)
 	
 	int err = wb.Dump("PR3083003.xls");
 	// test multiple Dump() calls: PR3083160
@@ -100,7 +100,8 @@ int main(int argc, char *argv[])
 			}
 			//printf("MD5 = %s\n", checkP);
 		}
-		fclose(fp);
+		if (fp)
+			fclose(fp);
 	}
 
 	try
