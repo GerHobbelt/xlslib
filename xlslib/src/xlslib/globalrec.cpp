@@ -722,7 +722,7 @@ void CGlobalRecords::wide2str16(const ustring& str1, u16string& str2)
 	size_t					resultSize, inbytesleft, outbytesleft;
 	const uint8_t			*inbuf;
 	iconv_t					cd;
-	unsigned16_t			*outbuf, *origOutbuf;
+	unsigned16_t			*outbuf, *origOutbuf = NULL;
 
 	cd = iconv_open(UCS_2_INTERNAL, iconv_code.c_str());
 	// user may have changed the conversion since the workbook was opened
