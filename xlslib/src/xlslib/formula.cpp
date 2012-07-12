@@ -3118,23 +3118,6 @@ errcode_t estimated_formula_result_t::SetErrorCode(errcode_t v)
 	return value.e = v;
 }
 
-static inline unsigned64_t encode_fp2u64(double value)
-{
-#include "common/xls_pshpack1.h"
-
-	union
-	{
-		double f;
-		unsigned64_t i;
-		unsigned8_t b[8];
-	} v;
-
-#include "common/xls_poppack.h"
-
-	v.f = value;
-	return v.i;
-}
-
 unsigned64_t estimated_formula_result_t::GetEncodedValue(void) const
 {
 	unsigned64_t rv;
@@ -3150,11 +3133,11 @@ unsigned64_t estimated_formula_result_t::GetEncodedValue(void) const
 		break;
 
 	case ESTVAL_INTEGER:
-		rv = encode_fp2u64(value.i);
+		rv = CUnit::EncodeFP2I64(value.i);
 		break;
 
 	case ESTVAL_FLOATINGPOINT:
-		rv = encode_fp2u64(value.f);
+		rv = CUnit::EncodeFP2I64(value.f);
 		break;
 
 	case ESTVAL_STRING:

@@ -145,6 +145,8 @@ namespace xlslib_core
 		signed8_t SetArrayAt(const unsigned8_t* newdata, size_t size, unsigned32_t index);
 		// signed8_t GetData(unsigned8_t** data, unsigned32_t from, unsigned32_t to );
 
+		static unsigned64_t EncodeFP2I64(double newval);
+
 	public:
 		signed8_t Inflate(size_t newsize);
 		signed32_t GetIndex() const { return m_Index; }
