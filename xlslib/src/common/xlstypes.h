@@ -39,6 +39,13 @@
 
 #endif
 
+#ifdef HAVE_STDINT_H
+#include <stdint.h>
+#endif
+#ifdef HAVE_INTTYPES_H
+#include <inttypes.h>
+#endif
+
 // Setup our typedefs now - would like to get them from systype.h
 #if defined(uint8_t) || defined(HAVE_STDINT_H)				// ASSUMPTION: if we have uint8_t we will have all the others too
 
@@ -90,7 +97,6 @@ namespace xlslib_strings
 #if defined(_MSC_VER) && defined(WIN32)		// Windows
 
 typedef wchar_t unichar_t;
-//#define ustring wstring
 typedef std::wstring ustring;
 typedef ustring wstring;
 typedef std::basic_string<unsigned16_t> u16string;
@@ -110,7 +116,8 @@ typedef std::string string;
 #else										// All other C++
 
 typedef wchar_t unichar_t;
-#define ustring wstring
+typedef std::wstring ustring;
+typedef ustring wstring;
 typedef std::basic_string<unsigned16_t> u16string;
 typedef std::string string;
 

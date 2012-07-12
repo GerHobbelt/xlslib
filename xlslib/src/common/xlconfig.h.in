@@ -31,6 +31,9 @@ WARNING: this one is copied striaght over by the configure script, as it should.
 /* Define to 1 if the system has the type `long long int'. */
 #undef HAVE_LONG_LONG_INT
 
+/* Define to 1 if you have the <malloc.h> header file. */
+#undef HAVE_MALLOC_H
+
 /* Define to 1 if you have the `memchr' function. */
 #undef HAVE_MEMCHR
 

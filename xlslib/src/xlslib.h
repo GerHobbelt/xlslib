@@ -38,10 +38,10 @@
 
 #if defined(__cplusplus)
 
-#include <string>
-
 #include "common/xlsys.h"
 #include "common/xlstypes.h"
+
+#include <string>
 
 #include "xlslib/record.h"
 #include "xlslib/globalrec.h"

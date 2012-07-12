@@ -36,12 +36,16 @@ host_triplet = @host@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in \
+	$(top_srcdir)/build/BDS/ac-config.win32.h.in \
+	$(top_srcdir)/build/CodeBlocks/ac-config.win32.h.in \
+	$(top_srcdir)/build/RadStudio/ac-config.win32.h.in \
 	$(top_srcdir)/build/msvc2005/ac-config.win32.h.in \
 	$(top_srcdir)/build/msvc2008/ac-config.win32.h.in \
+	$(top_srcdir)/build/msvc2010/ac-config.win32.h.in \
 	$(top_srcdir)/configure $(top_srcdir)/src/common/xlconfig.h.in \
-	COPYING COPYING.LESSER INSTALL NEWS TODO config/config.guess \
-	config/config.sub config/depcomp config/install-sh \
-	config/ltmain.sh config/missing
+	INSTALL NEWS TODO config/config.guess config/config.sub \
+	config/depcomp config/install-sh config/ltmain.sh \
+	config/missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps =  \
 	$(top_srcdir)/m4/ac___function___c99_vpredef_vars.m4 \
@@ -61,7 +65,10 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/src/common/xlconfig.h
 CONFIG_CLEAN_FILES = build/msvc2005/ac-config.win32.h \
-	build/msvc2008/ac-config.win32.h
+	build/msvc2008/ac-config.win32.h \
+	build/msvc2010/ac-config.win32.h \
+	build/RadStudio/ac-config.win32.h build/BDS/ac-config.win32.h \
+	build/CodeBlocks/ac-config.win32.h
 CONFIG_CLEAN_VPATH_FILES =
 SOURCES =
 DIST_SOURCES =
@@ -241,7 +248,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
-#auxdir					= m4 
+#auxdir					= m4
 #@AC_AUX_DIR@
 AUX_DIST = $(auxdir)/install-sh $(auxdir)/missing \
 							$(auxdir)/mkinstalldirs
@@ -258,7 +265,7 @@ MAINTAINERCLEANFILES = Makefile.in aclocal.m4 acinclude.m4 configure sic/config-
 
 
 #ACLOCAL				= aclocal
-ACLOCAL_AMFLAGS = -I m4 
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 all: all-recursive
 
 .SUFFIXES:
@@ -316,6 +323,14 @@ distclean-hdr:
 build/msvc2005/ac-config.win32.h: $(top_builddir)/config.status $(top_srcdir)/build/msvc2005/ac-config.win32.h.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 build/msvc2008/ac-config.win32.h: $(top_builddir)/config.status $(top_srcdir)/build/msvc2008/ac-config.win32.h.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+build/msvc2010/ac-config.win32.h: $(top_builddir)/config.status $(top_srcdir)/build/msvc2010/ac-config.win32.h.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+build/RadStudio/ac-config.win32.h: $(top_builddir)/config.status $(top_srcdir)/build/RadStudio/ac-config.win32.h.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+build/BDS/ac-config.win32.h: $(top_builddir)/config.status $(top_srcdir)/build/BDS/ac-config.win32.h.in
+	cd $(top_builddir) && $(SHELL) ./config.status $@
+build/CodeBlocks/ac-config.win32.h: $(top_builddir)/config.status $(top_srcdir)/build/CodeBlocks/ac-config.win32.h.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 mostlyclean-libtool:

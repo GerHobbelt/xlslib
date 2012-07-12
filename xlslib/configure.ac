@@ -42,7 +42,7 @@ AC_PROG_INSTALL
 # Checks for header files.
 
 # Taken from libxml - DFH
-AC_CHECK_HEADERS([wchar.h stdint.h stdbool.h malloc.h memory.h string.h strings.h unistd.h])
+AC_CHECK_HEADERS([wchar.h stdint.h inttypes.h stdbool.h malloc.h memory.h string.h strings.h unistd.h])
 # added to make syncing config for Win32/64 easier
 AC_CHECK_HEADERS([ctype.h sys/types.h crtdbg.h crt_externs.h windows.h])
 
@@ -349,6 +349,9 @@ AC_CONFIG_FILES([Makefile
 				 build/msvc2005/ac-config.win32.h
 				 build/msvc2008/ac-config.win32.h
 				 build/msvc2010/ac-config.win32.h
+				 build/RadStudio/ac-config.win32.h
+				 build/BDS/ac-config.win32.h
+				 build/CodeBlocks/ac-config.win32.h
 				])
 AC_OUTPUT
 

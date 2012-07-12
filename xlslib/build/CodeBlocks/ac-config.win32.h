@@ -1,18 +1,5 @@
-/* ac-config.win32.h.  Generated from ac-config.h.in by configure.  Patched by [i_a] to make it work for MSVC2005.  */
-/* src/common/xlconfig.h.in.  Generated from configure.ac by autoheader.  */
+/* ac-config.win32.h.  Originally generated for MSVS  modified for Linux RLN 11130*/
 
-
-#ifndef WIN32
-#define WIN32
-#endif
-
-#ifndef _WIN32
-#define _WIN32
-#endif
-
-#ifndef __WIN32
-#define __WIN32
-#endif
 
 
 /* Define if you want to compile with extra debug development checks */
@@ -143,7 +130,7 @@
 #undef HAVE___FUNC__
 
 /* Set host type */
-#define HOSTTYPE "Windows-MS"
+#define HOSTTYPE "linux"
 
 /* Name of package */
 #define PACKAGE "xlslib"
@@ -224,7 +211,7 @@
 #ifndef __cplusplus
 #define inline __inline
 #endif
-#ifdef __BCPLUSPLUS__
+#ifdef __linux__
 
 #else
 typedef __int64 int64_t;

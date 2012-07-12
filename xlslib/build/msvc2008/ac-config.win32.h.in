@@ -17,10 +17,10 @@
 
 /* Define if you want to compile with extra debug development checks */
 #if defined(_DEBUG) || defined(DEBUG) || defined(__DEBUG__) /* [i_a] this is done in the MSVC2005 project: different builds available */
-#undef DEBUG 
+#undef DEBUG
 #define DEBUG 1
 #else
-#undef DEBUG 
+#undef DEBUG
 #endif
 
 
@@ -44,6 +44,9 @@
 
 /* Define to 1 if the system has the type `long long int'. */
 #define HAVE_LONG_LONG_INT 1
+
+/* Define to 1 if you have the <malloc.h> header file. */
+#define HAVE_MALLOC_H 1
 
 /* Define to 1 if you have the `memchr' function. */
 #define HAVE_MEMCHR 1
@@ -73,7 +76,7 @@
 #define HAVE_PRAGMA_PACK_PUSH_POP 1
 
 /* Define to 1 if you have the `snprintf' function. */
-#undef HAVE_SNPRINTF 
+#undef HAVE_SNPRINTF
 
 /* Define to 1 if stdbool.h conforms to C99. */
 #undef HAVE_STDBOOL_H
@@ -85,7 +88,7 @@
 #define HAVE_STDLIB_H 1
 
 /* Define to 1 if you have the `strcasecmp' function. */
-#undef HAVE_STRCASECMP 
+#undef HAVE_STRCASECMP
 
 /* Define to 1 if you have the `strchr' function. */
 #define HAVE_STRCHR 1
@@ -115,7 +118,7 @@
 #undef HAVE_UNISTD_H
 
 /* Define to 1 if you have the `vsnprintf' function. */
-#undef HAVE_VSNPRINTF 
+#undef HAVE_VSNPRINTF
 
 /* Define to 1 if you have the <wchar.h> header file. */
 #define HAVE_WCHAR_H 1
@@ -136,7 +139,7 @@
 #define HAVE___FUNCTION__ 1
 
 /* Define if compiler implements __func__. */
-#undef HAVE___FUNC__ 
+#undef HAVE___FUNC__
 
 /* Set host type */
 #define HOSTTYPE "Windows-MS"

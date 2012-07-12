@@ -87,8 +87,8 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgincludedir)" \
 	"$(DESTDIR)$(pkgincludedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libxls_la_LIBADD =
-am_libxls_la_OBJECTS = assert_assist.lo blank.lo boolean.lo \
-	cbridge.lo cell.lo colinfo.lo colors.lo continue.lo datast.lo \
+am_libxls_la_OBJECTS = assert_assist.lo blank.lo boolean.lo cbridge.lo \
+	cell.lo colinfo.lo colors.lo continue.lo datast.lo \
 	docsumminfo.lo err.lo extformat.lo font.lo format.lo \
 	formula.lo globalrec.lo HPSF.lo index.lo label.lo merged.lo \
 	note.lo number.lo range.lo recdef.lo record.lo row.lo \
@@ -222,6 +222,7 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
+lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@

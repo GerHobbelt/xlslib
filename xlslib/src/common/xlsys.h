@@ -78,12 +78,16 @@
 
 #elif defined(__CODEBLOCKS__)  // This was __linux__ but added the define to the codeblocks config files
 
-#  include "ac-config.linux32.h"
+#  include "ac-config.win32.h"
 // I have been copying these ac-config files
 // for each target compiler under the respective build subdirectory
 // (i.e. xlslib/build/CodeBlocks and modified as needed.
 // The build subdirectory is then added to the include path list.
 // RLN 111231
+
+// Linux/UNIX platforms MUST use the configure script to set up the correct xlconfig.h;
+// The 'fixed config header file' cop-outs are only meant for platforms which do not provide bash / sh.
+// (In practice, this boils down to native Win32/64 compilers; MingW32/Cygwin-based ones should run ./configure.)
 
 #else // autoconf did the job:
 
@@ -93,9 +97,6 @@
 
 //--------------------------------------------------------------------------
 
-
-#define CFG_TRUE          1
-#define CFG_FALSE         0
 
 #define ALLOCATOR_STL     0
 #define ALLOCATOR_BTI     1

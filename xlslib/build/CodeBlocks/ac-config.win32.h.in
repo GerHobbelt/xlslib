@@ -1,18 +1,5 @@
-/* ac-config.win32.h.  Generated from ac-config.h.in by configure.  Patched by [i_a] to make it work for MSVC2005.  */
-/* src/common/xlconfig.h.in.  Generated from configure.ac by autoheader.  */
+/* ac-config.win32.h.  Originally generated for MSVS  modified for Linux RLN 11130*/
 
-
-#ifndef WIN32
-#define WIN32
-#endif
-
-#ifndef _WIN32
-#define _WIN32
-#endif
-
-#ifndef __WIN32
-#define __WIN32
-#endif
 
 
 /* Define if you want to compile with extra debug development checks */
@@ -143,28 +130,28 @@
 #undef HAVE___FUNC__
 
 /* Set host type */
-#define HOSTTYPE "Windows-MS"
+#define HOSTTYPE "linux"
 
 /* Name of package */
-#define PACKAGE "xlslib"
+#define PACKAGE "@PACKAGE@"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "dhoerl@users.sourceforge.net"
+#define PACKAGE_BUGREPORT "@PACKAGE_BUGREPORT@"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "xlslib"
+#define PACKAGE_NAME "@PACKAGE_NAME@"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "xlslib 2.3.4"
+#define PACKAGE_STRING "@PACKAGE_STRING@"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "xlslib"
+#define PACKAGE_TARNAME "@PACKAGE_TARNAME@"
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL ""
+#define PACKAGE_URL "@PACKAGE_URL@"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "2.3.4"
+#define PACKAGE_VERSION "@PACKAGE_VERSION@"
 
 /* The size of `int', as computed by sizeof. */
 #define SIZEOF_INT sizeof(int)  /* 4 */
@@ -179,7 +166,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "2.3.4"
+#define VERSION "@VERSION@"
 
 /* DISable ASSERT/VERIFY checks */
 #if !defined(DEBUG)
@@ -224,7 +211,7 @@
 #ifndef __cplusplus
 #define inline __inline
 #endif
-#ifdef __BCPLUSPLUS__
+#ifdef __linux__
 
 #else
 typedef __int64 int64_t;
