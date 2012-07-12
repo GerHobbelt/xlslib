@@ -36,6 +36,9 @@ build_triplet = @build@
 host_triplet = @host@
 noinst_PROGRAMS = testCPP$(EXEEXT) testC$(EXEEXT) PR2859188$(EXEEXT) \
 	PR3076678$(EXEEXT)
+# MingW: Dummy C++ source to cause C++ linking. Fix for MingW link errors.
+# See also:  http://www.qtforum.org/article/29890/qt-4-6-linking-problem.html?s=f3b28924bedf0be5f571e2d5be8ba7b49ee7debe#post103340
+@TARGET_OS_MINGW32_TRUE@am__append_1 = dummy.cpp
 check_PROGRAMS = testCPP$(EXEEXT) testC$(EXEEXT) PR2859188$(EXEEXT) \
 	PR3076678$(EXEEXT)
 TESTS = testCPP$(EXEEXT) testC$(EXEEXT) PR2859188$(EXEEXT) \
@@ -73,12 +76,14 @@ PR3076678_DEPENDENCIES = $(top_builddir)/src/libxls.la
 PR3076678_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(PR3076678_LDFLAGS) $(LDFLAGS) -o $@
-am_testC_OBJECTS = mainC.$(OBJEXT) md5.$(OBJEXT)
+am__testC_SOURCES_DIST = mainC.c md5.c dummy.cpp
+@TARGET_OS_MINGW32_TRUE@am__objects_1 = dummy.$(OBJEXT)
+am_testC_OBJECTS = mainC.$(OBJEXT) md5.$(OBJEXT) $(am__objects_1)
 testC_OBJECTS = $(am_testC_OBJECTS)
 testC_DEPENDENCIES = $(top_builddir)/src/libxls.la
-testC_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(testC_LDFLAGS) \
-	$(LDFLAGS) -o $@
+testC_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
+	$(testC_LDFLAGS) $(LDFLAGS) -o $@
 am_testCPP_OBJECTS = mainCPP.$(OBJEXT) md5.$(OBJEXT)
 testCPP_OBJECTS = $(am_testCPP_OBJECTS)
 testCPP_DEPENDENCIES = $(top_builddir)/src/libxls.la
@@ -110,7 +115,7 @@ CXXLINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 SOURCES = $(PR2859188_SOURCES) $(PR3076678_SOURCES) $(testC_SOURCES) \
 	$(testCPP_SOURCES)
 DIST_SOURCES = $(PR2859188_SOURCES) $(PR3076678_SOURCES) \
-	$(testC_SOURCES) $(testCPP_SOURCES)
+	$(am__testC_SOURCES_DIST) $(testCPP_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 # If stdout is a non-dumb tty, use colors.  If test -t is not supported,
@@ -256,7 +261,7 @@ AM_CPPFLAGS = \
 testCPP_SOURCES = mainCPP.cpp md5.c
 testCPP_LDADD = $(top_builddir)/src/libxls.la 
 testCPP_LDFLAGS = -static -lstdc++
-testC_SOURCES = mainC.c md5.c
+testC_SOURCES = mainC.c md5.c $(am__append_1)
 testC_LDADD = $(top_builddir)/src/libxls.la 
 testC_LDFLAGS = -static -lstdc++
 PR2859188_SOURCES = PR2859188.cpp md5.c
@@ -338,6 +343,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/PR2859188.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/PR3076678.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dummy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mainC.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mainCPP.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/md5.Po@am__quote@

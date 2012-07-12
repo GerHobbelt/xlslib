@@ -10,6 +10,7 @@ AC_CONFIG_AUX_DIR([config])
 AC_PREREQ(2.65)
 AC_CONFIG_MACRO_DIR([m4])
 AM_INIT_AUTOMAKE([foreign color-tests 1.11 check-news dist-bzip2 dist-zip dist-tarZ])
+AC_CANONICAL_HOST
 AC_CONFIG_SRCDIR([src/common/systype.h])
 AC_CONFIG_HEADERS([src/common/xlconfig.h])
 
@@ -24,7 +25,16 @@ AC_PROG_CPP
 AC_PROG_CPP_WERROR
 AC_USE_SYSTEM_EXTENSIONS
 
-# AC_PROG_RANLIB  -- rendered obsolete by LT_INIT
+# Special hacks: detect MingW (it needs a special hack in order for the mainC.c example to link)
+#
+# (The issue is resolved by enforcing http://www.qtforum.org/article/29890/qt-4-6-linking-problem.html?s=f3b28924bedf0be5f571e2d5be8ba7b49ee7debe#post103340 )
+echo ----------host = $host-------------
+case $host in
+  *-mingw* ) TARGET_OS_MINGW32=yes;;
+         * ) ;;
+esac
+AM_CONDITIONAL([TARGET_OS_MINGW32], [test "x$TARGET_OS_MINGW32" == xyes])
+ 
 
 # see also: GNU libtool docs: AC_PROG_LIBTOOL et al:
 # AC_DISABLE_SHARED
@@ -333,6 +343,14 @@ XLSLIB_LIBS="$ICONV_LIBS $LIBS"
 
 AC_SUBST(XLSLIB_LIBS)
 
+AC_DEFINE(HAVE_COMMON_XLCONFIG_H, 1, [
+ ---------------------------------------------------------------------------
+ WARNING: this one is copied straight over by the configure script, as it should.
+          When you copy this header file for hardcoding your own environment, than
+          make sure that this #define is NOT set, unless you're going to provide
+          your own common/xlconfig.h file as well!
+ ---------------------------------------------------------------------------
+]) 
 
 # write delayed options into CFLAGS/LDFLAGS:
 AX_ADD_OPTION([CFLAGS], [$ac_profiling_cc_flags])

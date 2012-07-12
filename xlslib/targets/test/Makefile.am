@@ -8,6 +8,11 @@ testCPP_SOURCES	  = mainCPP.cpp md5.c
 testCPP_LDADD	  = $(top_builddir)/src/libxls.la 
 testCPP_LDFLAGS   = -static -lstdc++
 testC_SOURCES	  = mainC.c md5.c
+if TARGET_OS_MINGW32		
+# MingW: Dummy C++ source to cause C++ linking. Fix for MingW link errors.
+# See also:  http://www.qtforum.org/article/29890/qt-4-6-linking-problem.html?s=f3b28924bedf0be5f571e2d5be8ba7b49ee7debe#post103340
+testC_SOURCES    += dummy.cpp
+endif
 testC_LDADD       = $(top_builddir)/src/libxls.la 
 testC_LDFLAGS     = -static -lstdc++
 PR2859188_SOURCES = PR2859188.cpp md5.c

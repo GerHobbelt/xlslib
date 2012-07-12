@@ -1,14 +1,13 @@
 /* src/common/xlconfig.h.in.  Generated from configure.ac by autoheader.  */
 
-/*---------------------------------------------------------------------------*/
-/*
-WARNING: this one is copied striaght over by the configure script, as it should.
-         When you copy this header file for hardcoding your own environment, than
-		 make sure that this #define is NOT set, unless you're going to provide
-		 your own common/xlconfig.h file as well!
-*/
-#define HAVE_COMMON_XLCONFIG_H			1
-/*---------------------------------------------------------------------------*/
+/* ---------------------------------------------------------------------------
+   WARNING: this one is copied straight over by the configure script, as it
+   should. When you copy this header file for hardcoding your own environment,
+   than make sure that this #define is NOT set, unless you're going to provide
+   your own common/xlconfig.h file as well!
+   ---------------------------------------------------------------------------
+   */
+#undef HAVE_COMMON_XLCONFIG_H
 
 /* Define to 1 if you have the <crtdbg.h> header file. */
 #undef HAVE_CRTDBG_H
