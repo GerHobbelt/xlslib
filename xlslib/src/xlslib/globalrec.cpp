@@ -60,7 +60,7 @@ CGlobalRecords::CGlobalRecords() :
 
 	defaultXF(NULL),
 
-#ifdef HAVE_ICONV
+#if defined(HAVE_WORKING_ICONV)
 	iconv_code(),
 #endif
 	m_DumpState(GLOBAL_INIT),
@@ -713,7 +713,7 @@ void CGlobalRecords::str16toascii(const u16string& str1, std::string& str2)
 	}
 }
 
-#ifdef HAVE_ICONV
+#if defined(HAVE_WORKING_ICONV)
 
 #include <errno.h>
 
@@ -773,7 +773,7 @@ void CGlobalRecords::wide2str16(const ustring& str1, u16string& str2)
 
 #endif
 
-#ifdef HAVE_ICONV
+#if defined(HAVE_WORKING_ICONV)
 
 void CGlobalRecords::char2str16(const string& str1, u16string& str2)
 {

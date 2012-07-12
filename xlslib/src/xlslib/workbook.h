@@ -85,7 +85,7 @@ namespace xlslib_core
 		xf_t*		xformat(format_t *format);
 		xf_t*		xformat(font_t* font, format_t *format);
 
-#ifdef HAVE_ICONV
+#if defined(HAVE_WORKING_ICONV)
 		int			iconvInType(const char *inType);
 #endif
 

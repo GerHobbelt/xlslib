@@ -93,6 +93,12 @@
 
 #include "common/xlconfig.h"
 
+#if !defined(__FRAMEWORK__)				// MAC Framework
+#if defined(HAVE_ICONV)
+#define HAVE_WORKING_ICONV			1
+#endif
+#endif
+
 #endif
 
 //--------------------------------------------------------------------------

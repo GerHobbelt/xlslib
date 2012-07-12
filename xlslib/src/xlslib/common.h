@@ -31,7 +31,7 @@
 #ifndef XLSLIB_COMMON_H
 #define XLSLIB_COMMON_H
 
-#ifdef HAVE_ICONV
+#if defined(HAVE_WORKING_ICONV)
 #include <iconv.h>
 
 /* part of fix for PR #3039001 */
