@@ -411,6 +411,8 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
     <ClInclude Include="..\..\src\xlslib\tostr.h" />
     <ClInclude Include="..\..\src\xlslib\unit.h" />
     <ClInclude Include="..\..\src\xlslib\workbook.h" />
+    <ClInclude Include="..\msvc2005\ac-config.win32.h" />
+    <ClInclude Include="..\msvc2008\ac-config.win32.h" />
     <ClInclude Include="ac-config.win32.h" />
     <ClInclude Include="..\..\src\common\overnew.h" />
     <ClInclude Include="..\..\src\common\stringtok.h" />
@@ -430,6 +432,8 @@ copy "$(TargetPath)" "$(SolutionDir)bin\$(Platform)_MSVC2008.$(Configuration)\$(
     <ClInclude Include="..\..\src\oledoc\oleprop.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\msvc2005\ac-config.win32.h.in" />
+    <None Include="..\msvc2008\ac-config.win32.h.in" />
     <None Include="ac-config.win32.h.in" />
     <None Include="..\..\xlslibRefGuide.pdf" />
     <None Include="..\..\xlslibRefManual.xls" />

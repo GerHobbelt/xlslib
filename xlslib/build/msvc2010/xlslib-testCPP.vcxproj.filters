@@ -34,6 +34,12 @@
     <Filter Include="Utility Files">
       <UniqueIdentifier>{d7237fa4-a346-4d35-81d0-ec61fe9cfac3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\build\MSVC2010">
+      <UniqueIdentifier>{b1725b5f-fe8e-47de-a2b1-ec012745ef58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\build\MSVC2005">
+      <UniqueIdentifier>{2fa4ba3e-b759-4693-b66c-9b1007c3058b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\targets\test\mainCPP.cpp">
@@ -137,9 +143,6 @@
     <ClInclude Include="..\..\src\xlslib\workbook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ac-config.win32.h">
-      <Filter>Header Files\build\MSVC2008</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\common\overnew.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
@@ -188,16 +191,31 @@
     <ClInclude Include="..\..\src\oledoc\oleprop.h">
       <Filter>Header Files\OLEdoc</Filter>
     </ClInclude>
+    <ClInclude Include="ac-config.win32.h">
+      <Filter>Header Files\build\MSVC2010</Filter>
+    </ClInclude>
+    <ClInclude Include="..\msvc2008\ac-config.win32.h">
+      <Filter>Header Files\build\MSVC2008</Filter>
+    </ClInclude>
+    <ClInclude Include="..\msvc2005\ac-config.win32.h">
+      <Filter>Header Files\build\MSVC2005</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ac-config.win32.h.in">
-      <Filter>Header Files\build\MSVC2008</Filter>
-    </None>
     <None Include="..\..\xlslibRefGuide.pdf">
       <Filter>Documentation</Filter>
     </None>
     <None Include="..\..\xlslibRefManual.xls">
       <Filter>Documentation</Filter>
+    </None>
+    <None Include="ac-config.win32.h.in">
+      <Filter>Header Files\build\MSVC2010</Filter>
+    </None>
+    <None Include="..\msvc2008\ac-config.win32.h.in">
+      <Filter>Header Files\build\MSVC2008</Filter>
+    </None>
+    <None Include="..\msvc2005\ac-config.win32.h.in">
+      <Filter>Header Files\build\MSVC2005</Filter>
     </None>
   </ItemGroup>
 </Project>
