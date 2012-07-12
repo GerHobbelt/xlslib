@@ -66,13 +66,11 @@ CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am_PR2859188_OBJECTS = PR2859188.$(OBJEXT) md5.$(OBJEXT)
 PR2859188_OBJECTS = $(am_PR2859188_OBJECTS)
-PR2859188_DEPENDENCIES = $(top_builddir)/src/libxls.la
 PR2859188_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(PR2859188_LDFLAGS) $(LDFLAGS) -o $@
 am_PR3076678_OBJECTS = PR3076678.$(OBJEXT) md5.$(OBJEXT)
 PR3076678_OBJECTS = $(am_PR3076678_OBJECTS)
-PR3076678_DEPENDENCIES = $(top_builddir)/src/libxls.la
 PR3076678_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(PR3076678_LDFLAGS) $(LDFLAGS) -o $@
@@ -80,13 +78,11 @@ am__testC_SOURCES_DIST = mainC.c md5.c dummy.cpp
 @TARGET_OS_MINGW32_TRUE@am__objects_1 = dummy.$(OBJEXT)
 am_testC_OBJECTS = mainC.$(OBJEXT) md5.$(OBJEXT) $(am__objects_1)
 testC_OBJECTS = $(am_testC_OBJECTS)
-testC_DEPENDENCIES = $(top_builddir)/src/libxls.la
 testC_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
 	$(testC_LDFLAGS) $(LDFLAGS) -o $@
 am_testCPP_OBJECTS = mainCPP.$(OBJEXT) md5.$(OBJEXT)
 testCPP_OBJECTS = $(am_testCPP_OBJECTS)
-testCPP_DEPENDENCIES = $(top_builddir)/src/libxls.la
 testCPP_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
 	$(testCPP_LDFLAGS) $(LDFLAGS) -o $@
@@ -259,15 +255,19 @@ AM_CPPFLAGS = \
 -I$(top_srcdir)/src
 
 testCPP_SOURCES = mainCPP.cpp md5.c
+testCPP_DEPENDENCIES = md5.h
 testCPP_LDADD = $(top_builddir)/src/libxls.la 
 testCPP_LDFLAGS = -static -lstdc++
 testC_SOURCES = mainC.c md5.c $(am__append_1)
+testC_DEPENDENCIES = md5.h
 testC_LDADD = $(top_builddir)/src/libxls.la 
 testC_LDFLAGS = -static -lstdc++
 PR2859188_SOURCES = PR2859188.cpp md5.c
+PR2859188_DEPENDENCIES = md5.h
 PR2859188_LDADD = $(top_builddir)/src/libxls.la 
 PR2859188_LDFLAGS = -static -lstdc++
 PR3076678_SOURCES = PR3076678.cpp md5.c
+PR3076678_DEPENDENCIES = md5.h
 PR3076678_LDADD = $(top_builddir)/src/libxls.la 
 PR3076678_LDFLAGS = -static -lstdc++
 all: all-am
@@ -610,7 +610,7 @@ distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-tags
+	distclean-local distclean-tags
 
 dvi: dvi-am
 
@@ -677,20 +677,25 @@ uninstall-am:
 .PHONY: CTAGS GTAGS all all-am check check-TESTS check-am clean \
 	clean-checkPROGRAMS clean-generic clean-libtool clean-local \
 	clean-noinstPROGRAMS ctags distclean distclean-compile \
-	distclean-generic distclean-libtool distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags uninstall uninstall-am
+	distclean-generic distclean-libtool distclean-local \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags uninstall uninstall-am
 
+
+#EXTRA_DIST = md5.h
 
 clean-local:
 	-rm -rf *.xls
+
+distclean-local:
+	-rm -rf .deps/
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

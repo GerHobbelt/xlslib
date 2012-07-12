@@ -28,7 +28,6 @@ AC_USE_SYSTEM_EXTENSIONS
 # Special hacks: detect MingW (it needs a special hack in order for the mainC.c example to link)
 #
 # (The issue is resolved by enforcing http://www.qtforum.org/article/29890/qt-4-6-linking-problem.html?s=f3b28924bedf0be5f571e2d5be8ba7b49ee7debe#post103340 )
-echo ----------host = $host-------------
 case $host in
   *-mingw* ) TARGET_OS_MINGW32=yes;;
          * ) ;;

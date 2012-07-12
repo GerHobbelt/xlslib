@@ -4,10 +4,10 @@
 # SEE IF WE REALLY NEED IT THOUGH
 # AM_CXXFLAGS = -O2
 
-AM_CPPFLAGS		=  \
--I$(top_srcdir)/src/data   \
--I$(top_srcdir)/src/oledoc \
--I$(top_srcdir)/src/common \
+AM_CPPFLAGS		=             \
+-I$(top_srcdir)/src/data      \
+-I$(top_srcdir)/src/oledoc    \
+-I$(top_srcdir)/src/common	  \
 -I$(top_srcdir)/src/xlslib
 
 lib_LTLIBRARIES 		= libxls.la
@@ -15,8 +15,8 @@ lib_LTLIBRARIES 		= libxls.la
 # DFH addition second spin, 3rd revision, back compat to 0 (http://sourceware.org/autobook/autobook/autobook_91.html)
 libxls_la_LDFLAGS = $(XLSLIB_LIBS) -version-info 2:3:0
 
-libxls_la_SOURCES 	=             \
-xlslib/assert_assist.cpp              \
+libxls_la_SOURCES 	=         \
+xlslib/assert_assist.cpp      \
 xlslib/blank.cpp		      \
 xlslib/boolean.cpp		      \
 xlslib/cbridge.cpp		      \
@@ -25,13 +25,13 @@ xlslib/colinfo.cpp		      \
 xlslib/colors.cpp		      \
 xlslib/continue.cpp		      \
 xlslib/datast.cpp		      \
-xlslib/docsumminfo.cpp		      \
+xlslib/docsumminfo.cpp		  \
 xlslib/err.cpp			      \
-xlslib/extformat.cpp		      \
+xlslib/extformat.cpp		  \
 xlslib/font.cpp			      \
 xlslib/format.cpp		      \
 xlslib/formula.cpp		      \
-xlslib/globalrec.cpp		      \
+xlslib/globalrec.cpp		  \
 xlslib/HPSF.cpp			      \
 xlslib/index.cpp		      \
 xlslib/label.cpp		      \
@@ -99,9 +99,11 @@ xlslib/row.h                  \
 xlslib/sheetrec.h		      \
 xlslib/summinfo.h		      \
 xlslib/unit.h			      \
+xlslib/tostr.h			      \
 xlslib/workbook.h
 
-#clean-local:
-#	-rm -rf .deps
+distclean-local:
+	-rm -rf .deps/
+	-rm -rf .libs/
 
 

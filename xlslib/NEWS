@@ -6,6 +6,13 @@ CVS ID: $Id: NEWS,v 1.3 2008/10/25 18:48:48 dhoerl Exp $
 #The most up-to-date version of this file is:
 #http://xlslib.cvs.sourceforge.net/xlslib/NEWS?view=markup
 
+Date 2012-07-12
+Summary: xlslib release 2.3.4 (BETA)
+-----------------------------------------------------------
+- MSVC2010 project files fixed
+- MingW support in ./configure script and makefiles
+- etc.etc.etc.
+
 Date 2007-4-15
 Summary: xlslib release 0.2.5 (ALPHA)
 -----------------------------------------------------------

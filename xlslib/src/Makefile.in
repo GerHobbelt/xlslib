@@ -239,9 +239,9 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = \
--I$(top_srcdir)/src/data   \
--I$(top_srcdir)/src/oledoc \
--I$(top_srcdir)/src/common \
+-I$(top_srcdir)/src/data      \
+-I$(top_srcdir)/src/oledoc    \
+-I$(top_srcdir)/src/common	  \
 -I$(top_srcdir)/src/xlslib
 
 lib_LTLIBRARIES = libxls.la
@@ -249,7 +249,7 @@ lib_LTLIBRARIES = libxls.la
 # DFH addition second spin, 3rd revision, back compat to 0 (http://sourceware.org/autobook/autobook/autobook_91.html)
 libxls_la_LDFLAGS = $(XLSLIB_LIBS) -version-info 2:3:0
 libxls_la_SOURCES = \
-xlslib/assert_assist.cpp              \
+xlslib/assert_assist.cpp      \
 xlslib/blank.cpp		      \
 xlslib/boolean.cpp		      \
 xlslib/cbridge.cpp		      \
@@ -258,13 +258,13 @@ xlslib/colinfo.cpp		      \
 xlslib/colors.cpp		      \
 xlslib/continue.cpp		      \
 xlslib/datast.cpp		      \
-xlslib/docsumminfo.cpp		      \
+xlslib/docsumminfo.cpp		  \
 xlslib/err.cpp			      \
-xlslib/extformat.cpp		      \
+xlslib/extformat.cpp		  \
 xlslib/font.cpp			      \
 xlslib/format.cpp		      \
 xlslib/formula.cpp		      \
-xlslib/globalrec.cpp		      \
+xlslib/globalrec.cpp		  \
 xlslib/HPSF.cpp			      \
 xlslib/index.cpp		      \
 xlslib/label.cpp		      \
@@ -332,6 +332,7 @@ xlslib/row.h                  \
 xlslib/sheetrec.h		      \
 xlslib/summinfo.h		      \
 xlslib/unit.h			      \
+xlslib/tostr.h			      \
 xlslib/workbook.h
 
 all: all-am
@@ -874,7 +875,7 @@ distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
-	distclean-tags
+	distclean-local distclean-tags
 
 dvi: dvi-am
 
@@ -943,10 +944,10 @@ uninstall-am: uninstall-libLTLIBRARIES \
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
 	clean-libLTLIBRARIES clean-libtool ctags distclean \
 	distclean-compile distclean-generic distclean-libtool \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am \
+	distclean-local distclean-tags distdir dvi dvi-am html html-am \
+	info info-am install install-am install-data install-data-am \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-info install-info-am \
 	install-libLTLIBRARIES install-man \
 	install-nobase_pkgincludeHEADERS install-pdf install-pdf-am \
 	install-pkgincludeHEADERS install-ps install-ps-am \
@@ -958,8 +959,9 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	uninstall-pkgincludeHEADERS
 
 
-#clean-local:
-#	-rm -rf .deps
+distclean-local:
+	-rm -rf .deps/
+	-rm -rf .libs/
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
