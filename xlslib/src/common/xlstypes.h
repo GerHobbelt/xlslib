@@ -40,7 +40,7 @@
 #endif
 
 // Setup our typedefs now - would like to get them from systype.h
-#ifdef uint8_t				// if we have this one we will have all the others too
+#if defined(uint8_t) || defined(HAVE_STDINT_H)				// ASSUMPTION: if we have uint8_t we will have all the others too
 
 typedef uint8_t				unsigned8_t;
 typedef uint16_t			unsigned16_t;
