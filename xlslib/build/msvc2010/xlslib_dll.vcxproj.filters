@@ -61,6 +61,9 @@
     <Filter Include="Extra Files\CodeBlocks">
       <UniqueIdentifier>{a5a9e412-9c3a-4982-9f45-d6d14f4ad3c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extra Files\RadStudio">
+      <UniqueIdentifier>{61c9db96-35fa-4673-9494-f929210818aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\xlslib\assert_assist.cpp">
@@ -320,8 +323,11 @@
     <ClInclude Include="..\BDS\ac-config.win32.h">
       <Filter>Extra Files\BorlandC</Filter>
     </ClInclude>
-    <ClInclude Include="..\CodeBlocks\ac-config.linux32.h">
+    <ClInclude Include="..\CodeBlocks\ac-config.win32.h">
       <Filter>Extra Files\CodeBlocks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RadStudio\ac-config.win32.h">
+      <Filter>Extra Files\RadStudio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -340,12 +346,6 @@
     <None Include="..\..\configure.ac">
       <Filter>Extra Files</Filter>
     </None>
-    <None Include="..\..\COPYING">
-      <Filter>Extra Files</Filter>
-    </None>
-    <None Include="..\..\COPYING.LESSER">
-      <Filter>Extra Files</Filter>
-    </None>
     <None Include="..\..\INSTALL">
       <Filter>Extra Files</Filter>
     </None>
@@ -358,26 +358,47 @@
     <None Include="..\..\README">
       <Filter>Extra Files</Filter>
     </None>
-    <None Include="..\..\StandardObjectiveC++.xcconfig">
-      <Filter>Extra Files</Filter>
-    </None>
     <None Include="..\..\TODO">
-      <Filter>Extra Files</Filter>
-    </None>
-    <None Include="..\..\VERSION.txt">
       <Filter>Extra Files</Filter>
     </None>
     <None Include="..\..\src\Makefile.am">
       <Filter>Extra Files\src</Filter>
-    </None>
-    <None Include="..\..\acinclude.m4">
-      <Filter>Extra Files\m4</Filter>
     </None>
     <None Include="..\BDS\2006\xlslib_static.bdsproj">
       <Filter>Extra Files\BorlandC</Filter>
     </None>
     <None Include="..\..\src\common\xlconfig.h.in">
       <Filter>Header Files\common</Filter>
+    </None>
+    <None Include="..\CodeBlocks\ac-config.win32.h.in">
+      <Filter>Extra Files\CodeBlocks</Filter>
+    </None>
+    <None Include="..\BDS\ac-config.win32.h.in">
+      <Filter>Extra Files\BorlandC</Filter>
+    </None>
+    <None Include="..\..\m4\ac___function___c99_vpredef_vars.m4">
+      <Filter>Extra Files\m4</Filter>
+    </None>
+    <None Include="..\..\m4\ax_add_option.m4">
+      <Filter>Extra Files\m4</Filter>
+    </None>
+    <None Include="..\..\m4\ax_cc_pragma_pack.m4">
+      <Filter>Extra Files\m4</Filter>
+    </None>
+    <None Include="..\..\m4\ax_cflags_gcc_option.m4">
+      <Filter>Extra Files\m4</Filter>
+    </None>
+    <None Include="..\..\m4\ax_cflags_warn_all.m4">
+      <Filter>Extra Files\m4</Filter>
+    </None>
+    <None Include="..\..\m4\ax_cxxflags_gcc_option.m4">
+      <Filter>Extra Files\m4</Filter>
+    </None>
+    <None Include="..\..\m4\ax_cxxflags_warn_all.m4">
+      <Filter>Extra Files\m4</Filter>
+    </None>
+    <None Include="..\RadStudio\ac-config.win32.h.in">
+      <Filter>Extra Files\RadStudio</Filter>
     </None>
   </ItemGroup>
 </Project>

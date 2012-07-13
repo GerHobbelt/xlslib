@@ -378,17 +378,18 @@
     <ClInclude Include="..\..\src\xlslib\tostr.h" />
     <ClInclude Include="..\..\src\xlslib\unit.h" />
     <ClInclude Include="..\..\src\xlslib\workbook.h" />
+    <ClInclude Include="..\BDS\ac-config.win32.h" />
+    <ClInclude Include="..\CodeBlocks\ac-config.win32.h" />
+    <ClInclude Include="..\RadStudio\ac-config.win32.h" />
     <ClInclude Include="ac-config.win32.h" />
     <ClInclude Include="..\..\src\common\overnew.h" />
     <ClInclude Include="..\..\src\common\stringtok.h" />
     <ClInclude Include="..\..\src\common\systype.h" />
     <ClInclude Include="..\..\src\common\timespan.h" />
-    <ClInclude Include="..\..\src\common\xlconfig.h" />
     <ClInclude Include="..\..\src\common\xls_poppack.h" />
     <ClInclude Include="..\..\src\common\xls_pshpack1.h" />
     <ClInclude Include="..\..\src\common\xls_pshpack2.h" />
     <ClInclude Include="..\..\src\common\xls_pshpack4.h" />
-    <ClInclude Include="..\..\src\common\xlslib.h" />
     <ClInclude Include="..\..\src\common\xlstypes.h" />
     <ClInclude Include="..\..\src\common\xlsys.h" />
     <ClInclude Include="..\..\src\oledoc\binfile.h" />
@@ -397,24 +398,29 @@
     <ClInclude Include="..\..\src\oledoc\oleprop.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\m4\ac___function___c99_vpredef_vars.m4" />
+    <None Include="..\..\m4\ax_add_option.m4" />
+    <None Include="..\..\m4\ax_cc_pragma_pack.m4" />
+    <None Include="..\..\m4\ax_cflags_gcc_option.m4" />
+    <None Include="..\..\m4\ax_cflags_warn_all.m4" />
+    <None Include="..\..\m4\ax_cxxflags_gcc_option.m4" />
+    <None Include="..\..\m4\ax_cxxflags_warn_all.m4" />
+    <None Include="..\..\src\common\xlconfig.h.in" />
+    <None Include="..\BDS\2006\xlslib_static.bdsproj" />
+    <None Include="..\BDS\ac-config.win32.h.in" />
+    <None Include="..\CodeBlocks\ac-config.win32.h.in" />
+    <None Include="..\RadStudio\ac-config.win32.h.in" />
     <None Include="ac-config.win32.h.in" />
     <None Include="..\..\xlslibRefGuide.pdf" />
     <None Include="..\..\xlslibRefManual.xls" />
     <None Include="..\..\bootstrap" />
     <None Include="..\..\configure.ac" />
-    <None Include="..\..\COPYING" />
-    <None Include="..\..\COPYING.LESSER" />
     <None Include="..\..\INSTALL" />
     <None Include="..\..\Makefile.am" />
     <None Include="..\..\NEWS" />
     <None Include="..\..\README" />
-    <None Include="..\..\StandardObjectiveC++.xcconfig" />
     <None Include="..\..\TODO" />
-    <None Include="..\..\VERSION.txt" />
     <None Include="..\..\src\Makefile.am" />
-    <None Include="..\..\acinclude.m4" />
-    <None Include="..\..\targets\Makefile.am" />
-    <None Include="..\..\targets\test\Makefile.am" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

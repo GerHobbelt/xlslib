@@ -66,7 +66,7 @@ The suite contains the xlslib library, and a test application (easily
 modifiable) that demonstrates various modes of creating spreadsheets.
 
 There are three types of documentation: the source manual Manual.xls, 
-which can be printed or just used for referece. Secondlu a pdf version
+which can be printed or just used for referece. Secondly a pdf version
 of this name xlslibRefGuide.pdf. Finally, refer to the main.cpp file in
 the targets/test folder to see how to use the library. If you want to 
 use this with a C app, then link in the library and include xlslib/xlslib.h.
@@ -77,7 +77,7 @@ would then call the delete function. An example file is included in the test
 folder: main.c There is also a test file that uses the "C" interface.
 
 == NOTES ==
-With the conversion to BIFF8 in Release 1.2, addition formatting capabilies become
+With the conversion to BIFF8 in Release 1.2, additional formatting capabilies become
 available. Unfortunately, these are not listed in the existing pdf document
 so to find them you will need to look at the xlslib.h header file.
 

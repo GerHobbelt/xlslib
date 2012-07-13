@@ -270,6 +270,7 @@ PR3076678_SOURCES = PR3076678.cpp md5.c
 PR3076678_DEPENDENCIES = md5.h
 PR3076678_LDADD = $(top_builddir)/src/libxls.la 
 PR3076678_LDFLAGS = -static -lstdc++
+EXTRA_DIST = md5.h
 all: all-am
 
 .SUFFIXES:
@@ -688,8 +689,6 @@ uninstall-am:
 	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
 	pdf pdf-am ps ps-am tags uninstall uninstall-am
 
-
-#EXTRA_DIST = md5.h
 
 clean-local:
 	-rm -rf *.xls

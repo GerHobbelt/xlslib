@@ -30,7 +30,7 @@ check_PROGRAMS = testCPP testC PR2859188 PR3076678
 
 TESTS = testCPP testC PR2859188 PR3076678
 
-#EXTRA_DIST = md5.h
+EXTRA_DIST = md5.h
 
 clean-local:
 	-rm -rf *.xls
