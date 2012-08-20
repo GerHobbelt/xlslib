@@ -30,9 +30,15 @@ Makefile.in
 *.res
 *.user
 
+xlslib/build/msvc2008/bin/
+xlslib/build/msvc2008/obj/
+xlslib/build/msvc2008/ipch/
 xlslib/build/msvc2010/bin/
 xlslib/build/msvc2010/obj/
 xlslib/build/msvc2010/ipch/
+xlslib/build/msvc2012/bin/
+xlslib/build/msvc2012/obj/
+xlslib/build/msvc2012/ipch/
 
 *.suo
 *.sdf

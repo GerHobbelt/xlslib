@@ -213,7 +213,7 @@ version 1.2
 Ger Hobbelt
 
 - Added 64-bit build support: -M commandline option now enables CreateDLL to
-  create suitable reponse files for X64 (AMD64) and IA64 (Itanium) 64-bit
+  create suitable response files for X64 (AMD64) and IA64 (Itanium) 64-bit
   builds of target DDLs.
 
 - Added --manifest commandline option, so you can specify a manifest filename.
@@ -351,6 +351,7 @@ Ger Hobbelt
 #include <process.h>                // for _spawnvp()
 #include <windows.h>                // needed to create processes
 #include <sys/stat.h>
+#include <time.h>					// required by MSVC2008
 
 using std::cerr;
 using std::cout;

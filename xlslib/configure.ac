@@ -366,6 +366,7 @@ AC_CONFIG_FILES([Makefile
 				 build/msvc2005/ac-config.win32.h
 				 build/msvc2008/ac-config.win32.h
 				 build/msvc2010/ac-config.win32.h
+				 build/msvc2012/ac-config.win32.h
 				 build/RadStudio/ac-config.win32.h
 				 build/BDS/ac-config.win32.h
 				 build/CodeBlocks/ac-config.win32.h

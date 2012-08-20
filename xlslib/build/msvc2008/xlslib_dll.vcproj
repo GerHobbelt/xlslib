@@ -24,8 +24,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin/$(PlatformName)_MSVC2008.$(ConfigurationName)\"
+			IntermediateDirectory="$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
@@ -49,7 +49,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008"
+				AdditionalIncludeDirectories="..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010"
 				PreprocessorDefinitions="_DLL;XP_WIN;WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -109,14 +109,14 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="process $(TargetPath) and copy it to $(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
-				CommandLine="echo $(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;$(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
+				Description="process $(TargetPath) for proper DLL exports of all C++ elements"
+				CommandLine="echo $(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;$(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin/$(PlatformName)_MSVC2008.$(ConfigurationName)\"
+			IntermediateDirectory="$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
@@ -141,7 +141,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008"
+				AdditionalIncludeDirectories="..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010"
 				PreprocessorDefinitions="WIN64;_WIN64;XP_WIN;WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -201,14 +201,14 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="process $(TargetPath) and copy it to $(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
-				CommandLine="echo $(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;$(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
+				Description="process $(TargetPath) for proper DLL exports of all C++ elements"
+				CommandLine="echo $(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;$(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|Itanium"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin/$(PlatformName)_MSVC2008.$(ConfigurationName)\"
+			IntermediateDirectory="$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
@@ -233,7 +233,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008"
+				AdditionalIncludeDirectories="..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010"
 				PreprocessorDefinitions="WIN64;_WIN64;XP_WIN;WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE"
 				StringPooling="true"
 				MinimalRebuild="false"
@@ -293,14 +293,14 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="process $(TargetPath) and copy it to $(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
-				CommandLine="echo $(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;$(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
+				Description="process $(TargetPath) for proper DLL exports of all C++ elements"
+				CommandLine="echo $(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;$(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin/$(PlatformName)_MSVC2008.$(ConfigurationName)\"
+			IntermediateDirectory="$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
@@ -329,7 +329,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008"
+				AdditionalIncludeDirectories="..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010"
 				PreprocessorDefinitions="STATIC_JS_API;XP_WIN;WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -386,14 +386,14 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="process $(TargetPath) and copy it to $(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
-				CommandLine="echo $(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;$(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
+				Description="process $(TargetPath) for proper DLL exports of all C++ elements"
+				CommandLine="echo $(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;$(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin/$(PlatformName)_MSVC2008.$(ConfigurationName)\"
+			IntermediateDirectory="$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
@@ -423,7 +423,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008"
+				AdditionalIncludeDirectories="..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010"
 				PreprocessorDefinitions="WIN64;_WIN64;XP_WIN;WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -480,14 +480,14 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="process $(TargetPath) and copy it to $(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
-				CommandLine="echo $(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;$(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
+				Description="process $(TargetPath) for proper DLL exports of all C++ elements"
+				CommandLine="echo $(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;$(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Itanium"
-			OutputDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
-			IntermediateDirectory="$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin/$(PlatformName)_MSVC2008.$(ConfigurationName)\"
+			IntermediateDirectory="$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
@@ -517,7 +517,7 @@
 				OmitFramePointers="false"
 				EnableFiberSafeOptimizations="true"
 				WholeProgramOptimization="true"
-				AdditionalIncludeDirectories="..\..\..\xlslib\src\xlslib;..\..\..\xlslib\src\oledoc;..\..\..\xlslib\src\common;..\..\..\xlslib\build\msvc2008"
+				AdditionalIncludeDirectories="..\..\..\xlslib\src;..\..\..\xlslib\build\msvc2010"
 				PreprocessorDefinitions="WIN64;_WIN64;XP_WIN;WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -574,8 +574,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="process $(TargetPath) and copy it to $(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)"
-				CommandLine="echo $(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;$(SolutionDir)bin\Win32_MSVC2008.$(ConfigurationName)\createDLL  -M$(PlatformName) -n$(OutDir)\$(ProjectName).map -l$(IntDir) -i$(OutDir)\$(ProjectName).lib&#x0D;&#x0A;&#x0D;&#x0A;if not exist &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot; mkdir &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)&quot;&#x0D;&#x0A;copy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)bin\$(PlatformName)_MSVC2008.$(ConfigurationName)\$(TargetFileName)&quot;&#x0D;&#x0A;"
+				Description="process $(TargetPath) for proper DLL exports of all C++ elements"
+				CommandLine="echo $(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;$(SolutionDir)bin/Win32_MSVC2008.$(ConfigurationName)\createDLL -M$(PlatformName) -n$(OutDir)$(ProjectName).map -l$(IntDir) -i$(OutDir)$(ProjectName).lib -W$(SolutionDir)obj/$(ProjectName)_$(PlatformName)_MSVC2008.$(ConfigurationName)\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
